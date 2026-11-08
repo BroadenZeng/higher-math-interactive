@@ -8,9 +8,9 @@
 
 ## 课件目录
 
-| 章节 | 内容 | 状态 |
+| 章节 | 内容 | 类型 |
 | :--- | :--- | :--- |
-| 第三章 · 第三节 | [洛必达法则](https://broadenzeng.github.io/higher-math-interactive/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99.html) | 已发布 |
+| 第三章 · 第三节 | [洛必达法则](https://broadenzeng.github.io/higher-math-interactive/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99.html) | HTML 交互式教学课件 |
 
 后续章节将逐步更新。
 
