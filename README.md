@@ -32,4 +32,4 @@
 
 本项目持续更新，欢迎就高等数学教学和交互课件交流。
 
-课件中的原创内容及代码保留相关权利；如需转载或用于其他用途，请先联系作者。项目使用 [MathJax](https://www.mathjax.org/) 渲染数学公式，其使用遵循 MathJax 自身的开源许可。
+项目使用 [MathJax](https://www.mathjax.org/) 渲染数学公式，其使用遵循 MathJax 自身的开源许可。
