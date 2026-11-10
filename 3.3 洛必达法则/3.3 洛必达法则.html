@@ -1,1 +1,691 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.3 洛必达法则</title><link rel="stylesheet" href="../公共资源/style.css"><script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script><script defer src="../公共资源/mathjax-tex-svg.js"></script><script defer src="../公共资源/slides.js"></script><script defer src="图像.js"></script><style>.writing-question ~ .exercise-solution-toggle{left:110px}</style><style>.growth-transition .body>.step[data-step="1"]{margin-top:38px}.growth-transition .body>.step[data-step="2"]{margin-top:55px}</style></head><body><main id="viewport"><div id="stage"><section class="slide cover"><div><p>第三章　微分中值定理与导数的应用</p><p>第三节　洛必达法则</p></div></section><section class="slide"><h1>从一个极限问题开始</h1><div class="body"><p>当 \(x\to0\) 时，\(e^x-1\to0\)，\(\sin 2x\to0\)．</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=?\]</div><p class="question">分子和分母都趋于零，这个比值会趋于多少？</p></div></section><section class="slide"><h1>观察：原点附近的两条曲线</h1><div class="body"><div class="zoom-layout"><div><canvas id="introGraph" width="880" height="530" aria-label="指数函数与正弦函数在原点附近的图像"></canvas></div><div class="zoom-controls"><div class="zoom-key"><div><i class="zoom-key-line" aria-hidden="true"></i>\(y=e^x-1\)</div><div><i class="zoom-key-line dashed" aria-hidden="true"></i>\(y=\sin 2x\)</div></div><p class="intro-range">观察范围：<span id="introRange" class="blue"></span></p><input id="introZoom" aria-label="观察范围" type="range" min="0" max="7" value="0"><p class="zoom-prompt">两条曲线分别像什么？</p></div></div></div></section><section class="slide"><h1>观察：原点附近的变化</h1><div class="body"><p>放大后，两条曲线在原点附近看起来越来越像直线．</p><p class="question">当 \(x\to0\) 时，两个函数值的比趋于多少？</p><div class="step" data-step="1"><p>从图像看，\(\sin 2x\) 的变化约为 \(e^x-1\) 的两倍．</p><p>这只是观察得到的猜想；下面用泰勒展开说明．</p></div></div></section><section class="slide"><h1>用泰勒展开解释图像</h1><div class="body"><p>当 \(x\to0\) 时，分子和分母分别展开：</p><div class="eq">\[e^x-1=x+o(x),\qquad \sin 2x=2x+o(x).\]</div><div class="step" data-step="1"><p>一次项的系数分别是两个函数在原点处的导数：</p><div class="eq">\[(e^x-1)^{\prime}\big|_{x=0}=1,\qquad (\sin 2x)^{\prime}\big|_{x=0}=2.\]</div></div><div class="step" data-step="2"><p>两边都由一次项主导，因此</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=\frac{1}{2}.\]</div></div></div></section><section class="slide"><h1>由例子想到一般情况</h1><div class="body"><p>刚才的例子中，当 \(x\to0\) 时，分子与分母都趋于零，而且</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=\lim_{x\to0}\frac{(e^x-1)^{\prime}}{(\sin 2x)^{\prime}}=\lim_{x\to0}\frac{e^x}{2\cos 2x}=\frac{1}{2}.\]</div><div class="step" data-step="1"><p class="question">对于一般的 \(0/0\) 型极限，<br>能否通过分子、分母的导数之比来求？</p></div></div></section><section class="slide"><h1>洛必达法则：\(0/0\) 型</h1><div class="body"><p>设 \(f,g\) 在 \(x_0\) 的某去心邻域内可导，且 \(g^{\prime}(x)\ne0\)．若</p><div class="eq theorem-condition"><span>\(\displaystyle\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=0,\qquad \lim_{x\to x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}\)</span><span>存在且为有限数，</span></div><p>则</p><div class="eq">\[\boxed{\displaystyle\lim_{x\to x_0}\frac{f(x)}{g(x)}=\lim_{x\to x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}.}\]</div></div></section><section class="slide example-slide"><h1>例 1</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{x}.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-1">解：</button><div id="example-solution-1" class="exercise-solution-panel" hidden><p>当 \(x\to0\) 时，分子、分母都趋于零，是 \(0/0\) 型．</p><p>分子、分母分别求导：</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{x}=\lim_{x\to0}\frac{(e^x-1)^{\prime}}{x^{\prime}}=\lim_{x\to0}\frac{e^x}{1}=1.\]</div></div></div></section><section class="slide example-slide"><h1>例 2</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-2">解：</button><div id="example-solution-2" class="exercise-solution-panel" hidden><p>当 \(x\to1\) 时，分子、分母都趋于零，是 \(0/0\) 型．</p><div class="eq">\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}=\lim_{x\to1}\frac{3x^2-3}{3x^2-2x-1}.\]</div><p>仍是 \(0/0\) 型，再次使用洛必达法则：</p><div class="eq">\[\lim_{x\to1}\frac{3x^2-3}{3x^2-2x-1}=\lim_{x\to1}\frac{6x}{6x-2}=\frac32.\]</div></div></div></section><section class="slide"><h1>从泰勒展开看例 2</h1><div class="body"><p>令 \(\Delta x=x-1\)，当 \(\Delta x\to0\) 时，分子、分母分别展开：</p><div class="eq">\[\begin{aligned}x^3-3x+2&=3(\Delta x)^2+(\Delta x)^3,\\x^3-x^2-x+1&=2(\Delta x)^2+(\Delta x)^3.\end{aligned}\]</div><div class="step" data-step="1"><p>一次项都为零，二次项决定主要变化，因此</p><div class="eq">\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}=\lim_{\Delta x\to0}\frac{3(\Delta x)^2+(\Delta x)^3}{2(\Delta x)^2+(\Delta x)^3}=\frac32.\]</div><p>这里连续两次求导，与比较二次项系数相呼应．</p></div></div></section><section class="slide"><h1>课堂练习</h1><div class="body"><p>先判断极限类型，再计算：</p><div class="eq">\[\begin{aligned}(1)\quad&\lim_{x\to0}\frac{\ln(1+x)}{x}, &\qquad (2)\quad&\lim_{x\to0}\frac{\sin 3x}{e^x-1},\\[1.2em](3)\quad&\lim_{x\to0}\frac{1-\cos x}{x^2}, &\qquad (4)\quad&\lim_{x\to0}\frac{e^x-1-x}{x^2}.\end{aligned}\]</div></div></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (1)\quad \lim_{x\to0}\frac{\ln(1+x)}{x}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-1">解：</button><div id="exercise-solution-extra-1" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to0}\frac{\ln(1+x)}{x}=\lim_{x\to0}\frac{1/(1+x)}{1}=1.\]</div></div><canvas class="writing-canvas" width="1600" height="900" aria-label="第1题手写白板"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (2)\quad \lim_{x\to0}\frac{\sin 3x}{e^x-1}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-2">解：</button><div id="exercise-solution-extra-2" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to0}\frac{\sin 3x}{e^x-1}=\lim_{x\to0}\frac{3\cos 3x}{e^x}=3.\]</div></div><canvas class="writing-canvas" width="1600" height="900" aria-label="第2题手写白板"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (3)\quad \lim_{x\to0}\frac{1-\cos x}{x^2}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-3">解：</button><div id="exercise-solution-extra-3" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to0}\frac{1-\cos x}{x^2}=\lim_{x\to0}\frac{\sin x}{2x}=\lim_{x\to0}\frac{\cos x}{2}=\frac12.\]</div></div><canvas class="writing-canvas" width="1600" height="900" aria-label="第3题手写白板"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (4)\quad \lim_{x\to0}\frac{e^x-1-x}{x^2}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-4">解：</button><div id="exercise-solution-extra-4" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to0}\frac{e^x-1-x}{x^2}=\lim_{x\to0}\frac{e^x-1}{2x}=\lim_{x\to0}\frac{e^x}{2}=\frac12.\]</div></div><canvas class="writing-canvas" width="1600" height="900" aria-label="第4题手写白板"></canvas></section><section class="slide"><h1>洛必达法则的推广</h1><div class="body"><p>在相应条件下，\(0/0\) 型洛必达法则还适用于：</p><ul><li>单侧极限；</li><li>\(x\to+\infty\) 或 \(x\to-\infty\) 的情形；</li><li>导数之比趋于 \(+\infty\) 或 \(-\infty\) 的情形．</li></ul></div></section><section class="slide"><h1>使用前先判断</h1><div class="body"><p>能否对下面的极限直接使用洛必达法则？</p><div class="eq">\[\lim_{x\to0}\frac{x+1}{2x+1}.\]</div><div class="step" data-step="1"><p>分子、分母分别趋于 \(1\)，可直接代入，极限为 \(1\)．</p><p class="center blue">它不是 \(0/0\) 或 \(\infty/\infty\) 型，不能直接使用洛必达法则．</p></div></div></section><section class="slide"><h1>当 \(x\) 趋于有限点</h1><div class="body"><p>当 \(x\to0^+\) 时，分子、分母都趋于无穷大，求：</p><div class="eq">\[\lim_{x\to0^+}\frac{\ln\left(1+\dfrac1{x^4}\right)}{\ln\left(1+\dfrac1{x^2}\right)}.\]</div><p class="question">这个比值会趋于多少？</p></div></section><section class="slide"><h1>观察：原点右侧的两条曲线</h1><div class="body"><div class="growth-layout"><div><canvas id="finiteGraph" width="880" height="530" aria-label="原点右侧两条对数函数曲线"></canvas></div><div class="growth-control"><div class="zoom-key growth-key"><div><i class="zoom-key-line" aria-hidden="true"></i>\(f(x)=\ln\left(1+\dfrac1{x^4}\right)\)</div><div><i class="zoom-key-line red" aria-hidden="true"></i>\(g(x)=\ln\left(1+\dfrac1{x^2}\right)\)</div></div><p>观察点：<span id="finiteRange" class="blue"></span></p><input id="finiteZoom" type="range" min="0" max="9" step="1" value="0" aria-label="靠近原点"><p class="growth-prompt">当 \(x\to0^+\) 时，\(f(x)/g(x)\) 趋于多少？</p></div></div></div></section><section class="slide dense-review growth-transition"><h1>由例子想到一般情况</h1><div class="body"><p>当 \(x\) 每次向 \(0^+\) 靠近时，函数值之比都接近 \(2\)，这不也意味着每次的增量之比接近 \(2\) 吗？</p><div class="step" data-step="1"><p>猜想：</p><div class="eq">\[\lim_{x\to0^+}\frac{f(x)}{g(x)}\stackrel{?}{=}\lim_{x\to0^+}\frac{f^{\prime}(x)}{g^{\prime}(x)}.\]</div></div><div class="step" data-step="2"><div class="eq">\[\frac{\left[\ln\left(1+\dfrac1{x^4}\right)\right]^{\prime}}{\left[\ln\left(1+\dfrac1{x^2}\right)\right]^{\prime}}=\frac{-\dfrac4{x(1+x^4)}}{-\dfrac2{x(1+x^2)}}=\frac{2(1+x^2)}{1+x^4}\longrightarrow2.\]</div></div></div></section><section class="slide"><h1>洛必达法则：\(\infty/\infty\) 型</h1><div class="body"><p>设 \(f,g\) 在 \(x_0\) 的某去心邻域内可导，且 \(g^{\prime}(x)\ne0\)．若</p><div class="eq theorem-condition"><span>\(\displaystyle\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=\infty,\qquad \lim_{x\to x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}\)</span><span>存在且为有限数，</span></div><p>则</p><div class="eq">\[\boxed{\displaystyle\lim_{x\to x_0}\frac{f(x)}{g(x)}=\lim_{x\to x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}.}\]</div></div></section><section class="slide"><h1>洛必达法则的推广</h1><div class="body"><p>在相应条件下，\(\infty/\infty\) 型洛必达法则也适用于：</p><ul><li>单侧极限；</li><li>\(x\to+\infty\) 或 \(x\to-\infty\) 的情形；</li><li>\(\dfrac{f^{\prime}(x)}{g^{\prime}(x)}\to\pm\infty\quad\Longrightarrow\quad\dfrac{f(x)}{g(x)}\to\pm\infty\)．</li></ul><p class="promotion-example">考虑下面的极限：</p><div class="eq">\[\lim_{x\to+\infty}\frac{\ln(e^{2x}+e^{-x})}{x+\dfrac1x}=?\]</div></div></section><section class="slide"><h1>向右观察：两条曲线</h1><div class="body"><div class="growth-layout simple-growth"><div><canvas id="growthGraph" width="880" height="530" aria-label="两条函数曲线"></canvas></div><div class="growth-control"><div class="zoom-key growth-key"><div><i class="zoom-key-line" aria-hidden="true"></i>\(f(x)=\ln(e^{2x}+e^{-x})\)</div><div><i class="zoom-key-line red" aria-hidden="true"></i>\(g(x)=x+\dfrac1x\)</div></div><p>观察点：<span id="growthRange" class="blue"></span></p><input id="growthX" type="range" min="0" max="8" step="1" value="0" aria-label="观察范围"><p class="growth-prompt">当 \(x\) 越来越大时，观察 \(f(x)/g(x)\) 趋于多少？</p></div></div></div></section><section class="slide"><h1>观察结果</h1><div class="body"><p>分子、分母分别求导：</p><div class="step" data-step="1"><div class="eq">\[f^{\prime}(x)=\frac{2e^{2x}-e^{-x}}{e^{2x}+e^{-x}},\qquad g^{\prime}(x)=1-\frac1{x^2}.\]</div></div><div class="step" data-step="2"><div class="eq">\[\lim_{x\to+\infty}\frac{f(x)}{g(x)}=\lim_{x\to+\infty}\frac{f^{\prime}(x)}{g^{\prime}(x)}=\lim_{x\to+\infty}\frac{\dfrac{2e^{2x}-e^{-x}}{e^{2x}+e^{-x}}}{1-\dfrac1{x^2}}=2.\]</div><p class="center blue">导数之比，比较的是两个函数在同一位置的瞬时增长率．</p></div></div></section><section class="slide example-slide"><h1>例 3</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to+\infty}\frac{\ln x}{x}.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-3">解：</button><div id="example-solution-3" class="exercise-solution-panel" hidden><p>这是 \(\infty/\infty\) 型：</p><div class="eq">\[\lim_{x\to+\infty}\frac{\ln x}{x}=\lim_{x\to+\infty}\frac{(\ln x)^{\prime}}{x^{\prime}}=\lim_{x\to+\infty}\frac{1/x}{1}=0.\]</div><p class="center blue">当 \(x\to+\infty\) 时，\(\ln x\) 的增长慢于 \(x\)．</p></div></div></section><section class="slide example-slide"><h1>例 4</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to+\infty}\frac{x}{e^x}.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-4">解：</button><div id="example-solution-4" class="exercise-solution-panel" hidden><p>这是 \(\infty/\infty\) 型：</p><div class="eq">\[\lim_{x\to+\infty}\frac{x}{e^x}=\lim_{x\to+\infty}\frac{1}{e^x}=0.\]</div></div></div></section><section class="slide"><h1>课堂练习</h1><div class="body"><p>求下列极限：</p><div class="eq">\[\begin{aligned}(1)\quad&\lim_{x\to+\infty}\frac{2x+1}{x+3}, &\qquad (2)\quad&\lim_{x\to+\infty}\frac{\ln x}{\sqrt{x}},\\[1.2em](3)\quad&\lim_{x\to+\infty}\frac{x^2}{e^x}, &\qquad (4)\quad&\lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}.\end{aligned}\]</div></div></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (1)\quad \lim_{x\to+\infty}\frac{2x+1}{x+3}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-infinity-1">解：</button><div id="exercise-solution-infinity-1" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to+\infty}\frac{2x+1}{x+3}=\lim_{x\to+\infty}\frac{(2x+1)^{\prime}}{(x+3)^{\prime}}=\lim_{x\to+\infty}\frac21=2.\]</div></div><canvas aria-label="第1题手写白板" class="writing-canvas" height="900" width="1600"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (2)\quad \lim_{x\to+\infty}\frac{\ln x}{\sqrt{x}}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-5">解：</button><div id="exercise-solution-extra-5" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to+\infty}\frac{\ln x}{\sqrt{x}}=\lim_{x\to+\infty}\frac{1/x}{1/(2\sqrt{x})}=\lim_{x\to+\infty}\frac{2}{\sqrt{x}}=0.\]</div></div><canvas aria-label="第2题手写白板" class="writing-canvas" height="900" width="1600"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (3)\quad \lim_{x\to+\infty}\frac{x^2}{e^x}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-6">解：</button><div id="exercise-solution-extra-6" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to+\infty}\frac{x^2}{e^x}=\lim_{x\to+\infty}\frac{2x}{e^x}=\lim_{x\to+\infty}\frac2{e^x}=0.\]</div></div><canvas aria-label="第3题手写白板" class="writing-canvas" height="900" width="1600"></canvas></section><section class="slide writing-slide"><div class="writing-question">\(\displaystyle (4)\quad \lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}\)</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="exercise-solution-extra-7">解：</button><div id="exercise-solution-extra-7" class="exercise-solution-panel" hidden><div class="exercise-solution-formula">\[\lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}=\lim_{x\to+\infty}\frac{6x}{4x-1}=\frac32.\]</div></div><canvas aria-label="第4题手写白板" class="writing-canvas" height="900" width="1600"></canvas></section><section class="slide"><img src="洛必达表情包.png" alt="洛必达法则表情包" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:94%;max-height:90%;width:auto;height:auto;object-fit:contain"></section><section class="slide"><div style="position:absolute;inset:0;color:#222"><svg viewBox="0 0 1600 900" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true"><defs><marker id="cycle-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#333"/></marker></defs><g fill="none" stroke="#333" stroke-width="2.5" marker-end="url(#cycle-arrow)"><path d="M430 270 H590"/><path d="M1010 270 H1170"/><path d="M1350 365 V535"/><path d="M1170 610 H1010"/><path d="M590 610 H430"/></g></svg><div style="position:absolute;left:80px;top:205px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px">\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div><div style="position:absolute;left:625px;top:185px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px">\(\displaystyle\lim_{x\to+\infty}\frac{\sqrt{x^2+1}}{x}\)</div><div style="position:absolute;left:1170px;top:205px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px">\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div><div style="position:absolute;left:1170px;top:525px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px">\(\displaystyle\lim_{x\to+\infty}\frac{\sqrt{x^2+1}}{x}\)</div><div style="position:absolute;left:625px;top:545px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px">\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div><div style="position:absolute;left:430px;top:218px;width:160px;text-align:center;font-size:28px">洛必达</div><div style="position:absolute;left:1010px;top:218px;width:160px;text-align:center;font-size:28px">洛必达</div><div style="position:absolute;left:1225px;top:430px;width:100px;text-align:center;font-size:28px">洛必达</div><div style="position:absolute;left:1010px;top:558px;width:160px;text-align:center;font-size:28px">洛必达</div><div style="position:absolute;left:430px;top:558px;width:160px;text-align:center;font-size:28px">洛必达</div><div style="position:absolute;left:0;top:389px;width:1600px;text-align:center;font-size:70px;color:#111">我让你洛不出来</div><div style="position:absolute;left:80px;top:545px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:48px;letter-spacing:7px">··········</div></div></section><section class="slide dense-review"><h1>想一想</h1><div class="body"><p class="question">如果导数之比的极限不存在，<br>原来的极限可以存在吗？</p><div class="step" data-step="1"><p>例如，考虑 \(\displaystyle\lim_{x\to+\infty}\frac{x+\sin x}{x}\)．</p><div class="eq">\[\frac{(x+\sin x)^{\prime}}{x^{\prime}}=1+\cos x.\]</div><p>当 \(x\to+\infty\) 时，导数之比的极限不存在．</p></div><div class="step" data-step="2"><p>而原来的极限为</p><div class="eq">\[\lim_{x\to+\infty}\frac{x+\sin x}{x}=\lim_{x\to+\infty}\left(1+\frac{\sin x}{x}\right)=1.\]</div><p class="center blue">导数之比的极限不存在，原来的极限仍可能存在．</p></div></div></section><section class="slide"><h1>其他未定式：先转化</h1><div class="body"><p>洛必达法则直接处理的是 \(0/0\) 与 \(\infty/\infty\) 型．</p><table class="indeterminate-table"><colgroup><col class="type-column"><col></colgroup><thead><tr><th scope="col">原类型</th><th scope="col">常见转化思路</th></tr></thead><tbody><tr><td>\(0\cdot\infty\)</td><td>把乘积改写成商</td></tr><tr><td>\(\infty-\infty\)</td><td>通分、有理化或变形</td></tr><tr><td>\(1^\infty,\ 0^0,\ \infty^0\)</td><td>先取对数，再研究指数</td></tr></tbody></table></div></section><section class="slide example-slide"><h1>例：\(0\cdot\infty\) 型</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to0^+}x\ln x.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-5">解：</button><div id="example-solution-5" class="exercise-solution-panel" hidden><p>改写成 \(\infty/\infty\) 型：</p><div class="eq">\[\lim_{x\to0^+}x\ln x=\lim_{x\to0^+}\frac{\ln x}{1/x}=\lim_{x\to0^+}\frac{1/x}{-1/x^2}=\lim_{x\to0^+}(-x)=0.\]</div></div></div></section><section class="slide example-slide"><h1>例：\(1^\infty\) 型</h1><div class="body"><p>求极限：</p><div class="eq">\[\lim_{x\to0}(1+x)^{1/x}.\]</div><button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example-solution-6">解：</button><div id="example-solution-6" class="exercise-solution-panel" hidden><p>令 \(y=(1+x)^{1/x}\)，则</p><div class="eq">\[\ln y=\frac{\ln(1+x)}{x}\longrightarrow1.\]</div><p>由指数函数的连续性，\(y\to e\)．</p></div></div></section><section class="slide"><h1>课堂练习</h1><div class="body"><p>求下列极限：</p><div class="eq">\[(1)\quad\lim_{x\to+\infty}\left(\sqrt{x^2+x}-x\right),\qquad (2)\quad\lim_{x\to0^+}x^x.\]</div></div></section><section class="slide summary-slide"><h1>本节小结</h1><div class="body"><ul><li>\(0/0\)：比较趋于零的快慢；\(\infty/\infty\)：比较趋于无穷的快慢．</li><li>一阶泰勒近似给出直觉：一次项非零时，变化率决定局部的主要变化．</li><li>洛必达法则在规定条件下，用导数之比的极限求原商的极限．</li><li>其他未定式先变形；每次使用前检查类型、条件与导数之比的极限．</li></ul></div></section></div></main></body></html>
+<!doctype html>
+<html lang="zh-CN"
+  ><head
+    ><meta charset="utf-8" /><meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    /><title>3.3 洛必达法则</title
+    ><link rel="stylesheet" href="../公共资源/style.css" /><script>
+      window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script
+    ><script defer src="../公共资源/mathjax-tex-svg.js"></script
+    ><script defer src="../公共资源/slides.js"></script
+    ><script defer src="图像.js"></script
+    ><style>
+      .writing-question ~ .exercise-solution-toggle{left:110px}</style
+    ><style>
+      .growth-transition .body>.step[data-step="1"]{margin-top:38px}.growth-transition .body>.step[data-step="2"]{margin-top:55px}
+    </style></head
+  ><body
+    ><main id="viewport"
+      ><div id="stage"
+        ><section class="slide cover"
+          ><div><p>第三章　微分中值定理与导数的应用</p><p>第三节　洛必达法则</p></div></section
+        ><section class="slide"
+          ><h1>从一个极限问题开始</h1
+          ><div class="body"
+            ><p>当 \(x\to0\) 时，\(e^x-1\to0\)，\(\sin 2x\to0\)．</p
+            ><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=?\]</div
+            ><p class="question">分子和分母都趋于零，这个比值会趋于多少？</p></div
+          ></section
+        ><section class="slide"
+          ><h1>观察：原点附近的两条曲线</h1
+          ><div class="body"
+            ><div class="zoom-layout"
+              ><div
+                ><canvas
+                  id="introGraph"
+                  width="880"
+                  height="530"
+                  aria-label="指数函数与正弦函数在原点附近的图像"
+                ></canvas></div
+              ><div class="zoom-controls"
+                ><div class="zoom-key"
+                  ><div><i class="zoom-key-line" aria-hidden="true"></i>\(y=e^x-1\)</div
+                  ><div
+                    ><i class="zoom-key-line dashed" aria-hidden="true"></i>\(y=\sin 2x\)</div
+                  ></div
+                ><p class="intro-range">观察范围：<span id="introRange" class="blue"></span></p
+                ><input
+                  id="introZoom"
+                  aria-label="观察范围"
+                  type="range"
+                  min="0"
+                  max="7"
+                  value="0"
+                /><p class="zoom-prompt">两条曲线分别像什么？</p></div
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>观察：原点附近的变化</h1
+          ><div class="body"
+            ><p>放大后，两条曲线在原点附近看起来越来越像直线．</p
+            ><p class="question">当 \(x\to0\) 时，两个函数值的比趋于多少？</p
+            ><div class="step" data-step="1"
+              ><p>从图像看，\(\sin 2x\) 的变化约为 \(e^x-1\) 的两倍．</p
+              ><p>这只是观察得到的猜想；下面用泰勒展开说明．</p></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>用泰勒展开解释图像</h1
+          ><div class="body"
+            ><p>当 \(x\to0\) 时，分子和分母分别展开：</p
+            ><div class="eq">\[e^x-1=x+o(x),\qquad \sin 2x=2x+o(x).\]</div
+            ><div class="step" data-step="1"
+              ><p>一次项的系数分别是两个函数在原点处的导数：</p
+              ><div class="eq"
+                >\[(e^x-1)^{\prime}\big|_{x=0}=1,\qquad (\sin 2x)^{\prime}\big|_{x=0}=2.\]</div
+              ></div
+            ><div class="step" data-step="2"
+              ><p>两边都由一次项主导，因此</p
+              ><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=\frac{1}{2}.\]</div></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>由例子想到一般情况</h1
+          ><div class="body"
+            ><p>刚才的例子中，当 \(x\to0\) 时，分子与分母都趋于零，而且</p
+            ><div class="eq"
+              >\[\lim_{x\to0}\frac{e^x-1}{\sin 2x}=\lim_{x\to0}\frac{(e^x-1)^{\prime}}{(\sin
+              2x)^{\prime}}=\lim_{x\to0}\frac{e^x}{2\cos 2x}=\frac{1}{2}.\]</div
+            ><div class="step" data-step="1"
+              ><p class="question"
+                >对于一般的 \(0/0\) 型极限，<br />能否通过分子、分母的导数之比来求？</p
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>洛必达法则：\(0/0\) 型</h1
+          ><div class="body"
+            ><p>设 \(f,g\) 在 \(x_0\) 的某去心邻域内可导，且 \(g^{\prime}(x)\ne0\)．若</p
+            ><div class="eq theorem-condition"
+              ><span
+                >\(\displaystyle\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=0,\qquad \lim_{x\to
+                x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}\)</span
+              ><span>存在且为有限数，</span></div
+            ><p>则</p
+            ><div class="eq"
+              >\[\boxed{\displaystyle\lim_{x\to x_0}\frac{f(x)}{g(x)}=\lim_{x\to
+              x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}.}\]</div
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例 1</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to0}\frac{e^x-1}{x}.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-1"
+              >解：</button
+            ><div id="example-solution-1" class="exercise-solution-panel" hidden
+              ><p>当 \(x\to0\) 时，分子、分母都趋于零，是 \(0/0\) 型．</p><p>分子、分母分别求导：</p
+              ><div class="eq"
+                >\[\lim_{x\to0}\frac{e^x-1}{x}=\lim_{x\to0}\frac{(e^x-1)^{\prime}}{x^{\prime}}=\lim_{x\to0}\frac{e^x}{1}=1.\]</div
+              ></div
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例 2</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-2"
+              >解：</button
+            ><div id="example-solution-2" class="exercise-solution-panel" hidden
+              ><p>当 \(x\to1\) 时，分子、分母都趋于零，是 \(0/0\) 型．</p
+              ><div class="eq"
+                >\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}=\lim_{x\to1}\frac{3x^2-3}{3x^2-2x-1}.\]</div
+              ><p>仍是 \(0/0\) 型，再次使用洛必达法则：</p
+              ><div class="eq"
+                >\[\lim_{x\to1}\frac{3x^2-3}{3x^2-2x-1}=\lim_{x\to1}\frac{6x}{6x-2}=\frac32.\]</div
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>从泰勒展开看例 2</h1
+          ><div class="body"
+            ><p>令 \(\Delta x=x-1\)，当 \(\Delta x\to0\) 时，分子、分母分别展开：</p
+            ><div class="eq"
+              >\[\begin{aligned}x^3-3x+2&=3(\Delta x)^2+(\Delta x)^3,\\x^3-x^2-x+1&=2(\Delta
+              x)^2+(\Delta x)^3.\end{aligned}\]</div
+            ><div class="step" data-step="1"
+              ><p>一次项都为零，二次项决定主要变化，因此</p
+              ><div class="eq"
+                >\[\lim_{x\to1}\frac{x^3-3x+2}{x^3-x^2-x+1}=\lim_{\Delta x\to0}\frac{3(\Delta
+                x)^2+(\Delta x)^3}{2(\Delta x)^2+(\Delta x)^3}=\frac32.\]</div
+              ><p>这里连续两次求导，与比较二次项系数相呼应．</p></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>课堂练习</h1
+          ><div class="body"
+            ><p>先判断极限类型，再计算：</p
+            ><div class="eq"
+              >\[\begin{aligned}(1)\quad&\lim_{x\to0}\frac{\ln(1+x)}{x}, &\qquad
+              (2)\quad&\lim_{x\to0}\frac{\sin 3x}{e^x-1},\\[1.2em](3)\quad&\lim_{x\to0}\frac{1-\cos
+              x}{x^2}, &\qquad (4)\quad&\lim_{x\to0}\frac{e^x-1-x}{x^2}.\end{aligned}\]</div
+            ></div
+          ></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (1)\quad \lim_{x\to0}\frac{\ln(1+x)}{x}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-1"
+            >解：</button
+          ><div id="exercise-solution-extra-1" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to0}\frac{\ln(1+x)}{x}=\lim_{x\to0}\frac{1/(1+x)}{1}=1.\]</div
+            ></div
+          ><canvas
+            class="writing-canvas"
+            width="1600"
+            height="900"
+            aria-label="第1题手写白板"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (2)\quad \lim_{x\to0}\frac{\sin 3x}{e^x-1}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-2"
+            >解：</button
+          ><div id="exercise-solution-extra-2" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to0}\frac{\sin 3x}{e^x-1}=\lim_{x\to0}\frac{3\cos 3x}{e^x}=3.\]</div
+            ></div
+          ><canvas
+            class="writing-canvas"
+            width="1600"
+            height="900"
+            aria-label="第2题手写白板"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (3)\quad \lim_{x\to0}\frac{1-\cos x}{x^2}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-3"
+            >解：</button
+          ><div id="exercise-solution-extra-3" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to0}\frac{1-\cos x}{x^2}=\lim_{x\to0}\frac{\sin
+              x}{2x}=\lim_{x\to0}\frac{\cos x}{2}=\frac12.\]</div
+            ></div
+          ><canvas
+            class="writing-canvas"
+            width="1600"
+            height="900"
+            aria-label="第3题手写白板"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (4)\quad \lim_{x\to0}\frac{e^x-1-x}{x^2}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-4"
+            >解：</button
+          ><div id="exercise-solution-extra-4" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to0}\frac{e^x-1-x}{x^2}=\lim_{x\to0}\frac{e^x-1}{2x}=\lim_{x\to0}\frac{e^x}{2}=\frac12.\]</div
+            ></div
+          ><canvas
+            class="writing-canvas"
+            width="1600"
+            height="900"
+            aria-label="第4题手写白板"
+          ></canvas></section
+        ><section class="slide"
+          ><h1>洛必达法则的推广</h1
+          ><div class="body"
+            ><p>在相应条件下，\(0/0\) 型洛必达法则还适用于：</p
+            ><ul
+              ><li>单侧极限；</li
+              ><li>\(x\to+\infty\) 或 \(x\to-\infty\) 的情形；</li
+              ><li>导数之比趋于 \(+\infty\) 或 \(-\infty\) 的情形．</li></ul
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>使用前先判断</h1
+          ><div class="body"
+            ><p>能否对下面的极限直接使用洛必达法则？</p
+            ><div class="eq">\[\lim_{x\to0}\frac{x+1}{2x+1}.\]</div
+            ><div class="step" data-step="1"
+              ><p>分子、分母分别趋于 \(1\)，可直接代入，极限为 \(1\)．</p
+              ><p class="center blue"
+                >它不是 \(0/0\) 或 \(\infty/\infty\) 型，不能直接使用洛必达法则．</p
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>当 \(x\) 趋于有限点</h1
+          ><div class="body"
+            ><p>当 \(x\to0^+\) 时，分子、分母都趋于无穷大，求：</p
+            ><div class="eq"
+              >\[\lim_{x\to0^+}\frac{\ln\left(1+\dfrac1{x^4}\right)}{\ln\left(1+\dfrac1{x^2}\right)}.\]</div
+            ><p class="question">这个比值会趋于多少？</p></div
+          ></section
+        ><section class="slide"
+          ><h1>观察：原点右侧的两条曲线</h1
+          ><div class="body"
+            ><div class="growth-layout"
+              ><div
+                ><canvas
+                  id="finiteGraph"
+                  width="880"
+                  height="530"
+                  aria-label="原点右侧两条对数函数曲线"
+                ></canvas></div
+              ><div class="growth-control"
+                ><div class="zoom-key growth-key"
+                  ><div
+                    ><i class="zoom-key-line" aria-hidden="true"></i
+                    >\(f(x)=\ln\left(1+\dfrac1{x^4}\right)\)</div
+                  ><div
+                    ><i class="zoom-key-line red" aria-hidden="true"></i
+                    >\(g(x)=\ln\left(1+\dfrac1{x^2}\right)\)</div
+                  ></div
+                ><p>观察点：<span id="finiteRange" class="blue"></span></p
+                ><input
+                  id="finiteZoom"
+                  type="range"
+                  min="0"
+                  max="9"
+                  step="1"
+                  value="0"
+                  aria-label="靠近原点"
+                /><p class="growth-prompt">当 \(x\to0^+\) 时，\(f(x)/g(x)\) 趋于多少？</p></div
+              ></div
+            ></div
+          ></section
+        ><section class="slide dense-review growth-transition"
+          ><h1>由例子想到一般情况</h1
+          ><div class="body"
+            ><p
+              >当 \(x\) 每次向 \(0^+\) 靠近时，函数值之比都接近
+              \(2\)，这不也意味着每次的增量之比接近 \(2\) 吗？</p
+            ><div class="step" data-step="1"
+              ><p>猜想：</p
+              ><div class="eq"
+                >\[\lim_{x\to0^+}\frac{f(x)}{g(x)}\stackrel{?}{=}\lim_{x\to0^+}\frac{f^{\prime}(x)}{g^{\prime}(x)}.\]</div
+              ></div
+            ><div class="step" data-step="2"
+              ><div class="eq"
+                >\[\frac{\left[\ln\left(1+\dfrac1{x^4}\right)\right]^{\prime}}{\left[\ln\left(1+\dfrac1{x^2}\right)\right]^{\prime}}=\frac{-\dfrac4{x(1+x^4)}}{-\dfrac2{x(1+x^2)}}=\frac{2(1+x^2)}{1+x^4}\longrightarrow2.\]</div
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>洛必达法则：\(\infty/\infty\) 型</h1
+          ><div class="body"
+            ><p>设 \(f,g\) 在 \(x_0\) 的某去心邻域内可导，且 \(g^{\prime}(x)\ne0\)．若</p
+            ><div class="eq theorem-condition"
+              ><span
+                >\(\displaystyle\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=\infty,\qquad \lim_{x\to
+                x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}\)</span
+              ><span>存在且为有限数，</span></div
+            ><p>则</p
+            ><div class="eq"
+              >\[\boxed{\displaystyle\lim_{x\to x_0}\frac{f(x)}{g(x)}=\lim_{x\to
+              x_0}\frac{f^{\prime}(x)}{g^{\prime}(x)}.}\]</div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>洛必达法则的推广</h1
+          ><div class="body"
+            ><p>在相应条件下，\(\infty/\infty\) 型洛必达法则也适用于：</p
+            ><ul
+              ><li>单侧极限；</li
+              ><li>\(x\to+\infty\) 或 \(x\to-\infty\) 的情形；</li
+              ><li
+                >\(\dfrac{f^{\prime}(x)}{g^{\prime}(x)}\to\pm\infty\quad\Longrightarrow\quad\dfrac{f(x)}{g(x)}\to\pm\infty\)．</li
+              ></ul
+            ><p class="promotion-example">考虑下面的极限：</p
+            ><div class="eq"
+              >\[\lim_{x\to+\infty}\frac{\ln(e^{2x}+e^{-x})}{x+\dfrac1x}=?\]</div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>向右观察：两条曲线</h1
+          ><div class="body"
+            ><div class="growth-layout simple-growth"
+              ><div
+                ><canvas
+                  id="growthGraph"
+                  width="880"
+                  height="530"
+                  aria-label="两条函数曲线"
+                ></canvas></div
+              ><div class="growth-control"
+                ><div class="zoom-key growth-key"
+                  ><div
+                    ><i class="zoom-key-line" aria-hidden="true"></i
+                    >\(f(x)=\ln(e^{2x}+e^{-x})\)</div
+                  ><div
+                    ><i class="zoom-key-line red" aria-hidden="true"></i>\(g(x)=x+\dfrac1x\)</div
+                  ></div
+                ><p>观察点：<span id="growthRange" class="blue"></span></p
+                ><input
+                  id="growthX"
+                  type="range"
+                  min="0"
+                  max="8"
+                  step="1"
+                  value="0"
+                  aria-label="观察范围"
+                /><p class="growth-prompt"
+                  >当 \(x\) 越来越大时，观察 \(f(x)/g(x)\) 趋于多少？</p
+                ></div
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>观察结果</h1
+          ><div class="body"
+            ><p>分子、分母分别求导：</p
+            ><div class="step" data-step="1"
+              ><div class="eq"
+                >\[f^{\prime}(x)=\frac{2e^{2x}-e^{-x}}{e^{2x}+e^{-x}},\qquad
+                g^{\prime}(x)=1-\frac1{x^2}.\]</div
+              ></div
+            ><div class="step" data-step="2"
+              ><div class="eq"
+                >\[\lim_{x\to+\infty}\frac{f(x)}{g(x)}=\lim_{x\to+\infty}\frac{f^{\prime}(x)}{g^{\prime}(x)}=\lim_{x\to+\infty}\frac{\dfrac{2e^{2x}-e^{-x}}{e^{2x}+e^{-x}}}{1-\dfrac1{x^2}}=2.\]</div
+              ><p class="center blue">导数之比，比较的是两个函数在同一位置的瞬时增长率．</p></div
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例 3</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to+\infty}\frac{\ln x}{x}.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-3"
+              >解：</button
+            ><div id="example-solution-3" class="exercise-solution-panel" hidden
+              ><p>这是 \(\infty/\infty\) 型：</p
+              ><div class="eq"
+                >\[\lim_{x\to+\infty}\frac{\ln x}{x}=\lim_{x\to+\infty}\frac{(\ln
+                x)^{\prime}}{x^{\prime}}=\lim_{x\to+\infty}\frac{1/x}{1}=0.\]</div
+              ><p class="center blue">当 \(x\to+\infty\) 时，\(\ln x\) 的增长慢于 \(x\)．</p></div
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例 4</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to+\infty}\frac{x}{e^x}.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-4"
+              >解：</button
+            ><div id="example-solution-4" class="exercise-solution-panel" hidden
+              ><p>这是 \(\infty/\infty\) 型：</p
+              ><div class="eq"
+                >\[\lim_{x\to+\infty}\frac{x}{e^x}=\lim_{x\to+\infty}\frac{1}{e^x}=0.\]</div
+              ></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>课堂练习</h1
+          ><div class="body"
+            ><p>求下列极限：</p
+            ><div class="eq"
+              >\[\begin{aligned}(1)\quad&\lim_{x\to+\infty}\frac{2x+1}{x+3}, &\qquad
+              (2)\quad&\lim_{x\to+\infty}\frac{\ln
+              x}{\sqrt{x}},\\[1.2em](3)\quad&\lim_{x\to+\infty}\frac{x^2}{e^x}, &\qquad
+              (4)\quad&\lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}.\end{aligned}\]</div
+            ></div
+          ></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (1)\quad \lim_{x\to+\infty}\frac{2x+1}{x+3}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-infinity-1"
+            >解：</button
+          ><div id="exercise-solution-infinity-1" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to+\infty}\frac{2x+1}{x+3}=\lim_{x\to+\infty}\frac{(2x+1)^{\prime}}{(x+3)^{\prime}}=\lim_{x\to+\infty}\frac21=2.\]</div
+            ></div
+          ><canvas
+            aria-label="第1题手写白板"
+            class="writing-canvas"
+            height="900"
+            width="1600"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (2)\quad \lim_{x\to+\infty}\frac{\ln x}{\sqrt{x}}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-5"
+            >解：</button
+          ><div id="exercise-solution-extra-5" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to+\infty}\frac{\ln
+              x}{\sqrt{x}}=\lim_{x\to+\infty}\frac{1/x}{1/(2\sqrt{x})}=\lim_{x\to+\infty}\frac{2}{\sqrt{x}}=0.\]</div
+            ></div
+          ><canvas
+            aria-label="第2题手写白板"
+            class="writing-canvas"
+            height="900"
+            width="1600"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (3)\quad \lim_{x\to+\infty}\frac{x^2}{e^x}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-6"
+            >解：</button
+          ><div id="exercise-solution-extra-6" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to+\infty}\frac{x^2}{e^x}=\lim_{x\to+\infty}\frac{2x}{e^x}=\lim_{x\to+\infty}\frac2{e^x}=0.\]</div
+            ></div
+          ><canvas
+            aria-label="第3题手写白板"
+            class="writing-canvas"
+            height="900"
+            width="1600"
+          ></canvas></section
+        ><section class="slide writing-slide"
+          ><div class="writing-question"
+            >\(\displaystyle (4)\quad \lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}\)</div
+          ><button
+            type="button"
+            class="exercise-solution-toggle"
+            aria-expanded="false"
+            aria-controls="exercise-solution-extra-7"
+            >解：</button
+          ><div id="exercise-solution-extra-7" class="exercise-solution-panel" hidden
+            ><div class="exercise-solution-formula"
+              >\[\lim_{x\to+\infty}\frac{3x^2+1}{2x^2-x}=\lim_{x\to+\infty}\frac{6x}{4x-1}=\frac32.\]</div
+            ></div
+          ><canvas
+            aria-label="第4题手写白板"
+            class="writing-canvas"
+            height="900"
+            width="1600"
+          ></canvas></section
+        ><section class="slide"
+          ><img
+            src="洛必达表情包.png"
+            alt="洛必达法则表情包"
+            style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:94%;max-height:90%;width:auto;height:auto;object-fit:contain" /></section
+        ><section class="slide"
+          ><div style="position:absolute;inset:0;color:#222"
+            ><svg
+              viewBox="0 0 1600 900"
+              style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"
+              aria-hidden="true"
+            >
+              <defs>
+                <marker
+                  id="cycle-arrow"
+                  viewBox="0 0 10 10"
+                  refX="9"
+                  refY="5"
+                  markerWidth="8"
+                  markerHeight="8"
+                  orient="auto"
+                >
+                  <path d="M0 0 L10 5 L0 10z" fill="#333" />
+                </marker>
+              </defs>
+              <g fill="none" stroke="#333" stroke-width="2.5" marker-end="url(#cycle-arrow)">
+                <path d="M430 270 H590" />
+                <path d="M1010 270 H1170" />
+                <path d="M1350 365 V535" />
+                <path d="M1170 610 H1010" />
+                <path d="M590 610 H430" />
+              </g></svg
+            ><div
+              style="position:absolute;left:80px;top:205px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px"
+              >\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div
+            ><div
+              style="position:absolute;left:625px;top:185px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px"
+              >\(\displaystyle\lim_{x\to+\infty}\frac{\sqrt{x^2+1}}{x}\)</div
+            ><div
+              style="position:absolute;left:1170px;top:205px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px"
+              >\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div
+            ><div
+              style="position:absolute;left:1170px;top:525px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px"
+              >\(\displaystyle\lim_{x\to+\infty}\frac{\sqrt{x^2+1}}{x}\)</div
+            ><div
+              style="position:absolute;left:625px;top:545px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:38px"
+              >\(\displaystyle\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+1}}\)</div
+            ><div
+              style="position:absolute;left:430px;top:218px;width:160px;text-align:center;font-size:28px"
+              >洛必达</div
+            ><div
+              style="position:absolute;left:1010px;top:218px;width:160px;text-align:center;font-size:28px"
+              >洛必达</div
+            ><div
+              style="position:absolute;left:1225px;top:430px;width:100px;text-align:center;font-size:28px"
+              >洛必达</div
+            ><div
+              style="position:absolute;left:1010px;top:558px;width:160px;text-align:center;font-size:28px"
+              >洛必达</div
+            ><div
+              style="position:absolute;left:430px;top:558px;width:160px;text-align:center;font-size:28px"
+              >洛必达</div
+            ><div
+              style="position:absolute;left:0;top:389px;width:1600px;text-align:center;font-size:70px;color:#111"
+              >我让你洛不出来</div
+            ><div
+              style="position:absolute;left:80px;top:545px;width:350px;height:150px;display:flex;align-items:center;justify-content:center;font-size:48px;letter-spacing:7px"
+              >··········</div
+            ></div
+          ></section
+        ><section class="slide dense-review"
+          ><h1>想一想</h1
+          ><div class="body"
+            ><p class="question">如果导数之比的极限不存在，<br />原来的极限可以存在吗？</p
+            ><div class="step" data-step="1"
+              ><p>例如，考虑 \(\displaystyle\lim_{x\to+\infty}\frac{x+\sin x}{x}\)．</p
+              ><div class="eq">\[\frac{(x+\sin x)^{\prime}}{x^{\prime}}=1+\cos x.\]</div
+              ><p>当 \(x\to+\infty\) 时，导数之比的极限不存在．</p></div
+            ><div class="step" data-step="2"
+              ><p>而原来的极限为</p
+              ><div class="eq"
+                >\[\lim_{x\to+\infty}\frac{x+\sin x}{x}=\lim_{x\to+\infty}\left(1+\frac{\sin
+                x}{x}\right)=1.\]</div
+              ><p class="center blue">导数之比的极限不存在，原来的极限仍可能存在．</p></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>其他未定式：先转化</h1
+          ><div class="body"
+            ><p>洛必达法则直接处理的是 \(0/0\) 与 \(\infty/\infty\) 型．</p
+            ><table class="indeterminate-table"
+              ><colgroup><col class="type-column" /><col /></colgroup
+              ><thead
+                ><tr><th scope="col">原类型</th><th scope="col">常见转化思路</th></tr></thead
+              ><tbody
+                ><tr><td>\(0\cdot\infty\)</td><td>把乘积改写成商</td></tr
+                ><tr><td>\(\infty-\infty\)</td><td>通分、有理化或变形</td></tr
+                ><tr><td>\(1^\infty,\ 0^0,\ \infty^0\)</td><td>先取对数，再研究指数</td></tr></tbody
+              ></table
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例：\(0\cdot\infty\) 型</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to0^+}x\ln x.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-5"
+              >解：</button
+            ><div id="example-solution-5" class="exercise-solution-panel" hidden
+              ><p>改写成 \(\infty/\infty\) 型：</p
+              ><div class="eq"
+                >\[\lim_{x\to0^+}x\ln x=\lim_{x\to0^+}\frac{\ln
+                x}{1/x}=\lim_{x\to0^+}\frac{1/x}{-1/x^2}=\lim_{x\to0^+}(-x)=0.\]</div
+              ></div
+            ></div
+          ></section
+        ><section class="slide example-slide"
+          ><h1>例：\(1^\infty\) 型</h1
+          ><div class="body"
+            ><p>求极限：</p><div class="eq">\[\lim_{x\to0}(1+x)^{1/x}.\]</div
+            ><button
+              type="button"
+              class="exercise-solution-toggle"
+              aria-expanded="false"
+              aria-controls="example-solution-6"
+              >解：</button
+            ><div id="example-solution-6" class="exercise-solution-panel" hidden
+              ><p>令 \(y=(1+x)^{1/x}\)，则</p
+              ><div class="eq">\[\ln y=\frac{\ln(1+x)}{x}\longrightarrow1.\]</div
+              ><p>由指数函数的连续性，\(y\to e\)．</p></div
+            ></div
+          ></section
+        ><section class="slide"
+          ><h1>课堂练习</h1
+          ><div class="body"
+            ><p>求下列极限：</p
+            ><div class="eq"
+              >\[(1)\quad\lim_{x\to+\infty}\left(\sqrt{x^2+x}-x\right),\qquad
+              (2)\quad\lim_{x\to0^+}x^x.\]</div
+            ></div
+          ></section
+        ><section class="slide summary-slide"
+          ><h1>本节小结</h1
+          ><div class="body"
+            ><ul
+              ><li>\(0/0\)：比较趋于零的快慢；\(\infty/\infty\)：比较趋于无穷的快慢．</li
+              ><li>一阶泰勒近似给出直觉：一次项非零时，变化率决定局部的主要变化．</li
+              ><li>洛必达法则在规定条件下，用导数之比的极限求原商的极限．</li
+              ><li>其他未定式先变形；每次使用前检查类型、条件与导数之比的极限．</li></ul
+            ></div
+          ></section
+        ></div
+      ></main
+    ></body
+  ></html
+>

@@ -12,9 +12,7 @@ let page = 0,
 function maxStep() {
   return Math.max(
     0,
-    ...[...slides[page].querySelectorAll("[data-step]")].map(
-      (x) => +x.dataset.step,
-    ),
+    ...[...slides[page].querySelectorAll("[data-step]")].map((x) => +x.dataset.step),
   );
 }
 function show() {
@@ -44,9 +42,7 @@ function show() {
   if (typeof applyLessonMode === "function") applyLessonMode();
   if (keep) {
     oldBar.hidden = true;
-    previous
-      .querySelector(".tool-toggle")
-      ?.setAttribute("aria-expanded", "false");
+    previous.querySelector(".tool-toggle")?.setAttribute("aria-expanded", "false");
     let bar = slides[page].querySelector(".writing-tools"),
       toggle = slides[page].querySelector(".tool-toggle");
     if (bar) {
@@ -76,8 +72,7 @@ function next() {
   } else if (reveal < maxStep()) reveal++;
   else {
     let n = page + 1;
-    while (n < slides.length && slides[n].classList.contains("blank-board"))
-      n++;
+    while (n < slides.length && slides[n].classList.contains("blank-board")) n++;
     if (n < slides.length) {
       page = n;
       reveal = 0;
@@ -116,10 +111,7 @@ onkeydown = (e) => {
       target?.isContentEditable ||
       target?.closest?.('[contenteditable]:not([contenteditable="false"])'),
     input =
-      tag === "INPUT" &&
-      !["button", "submit", "reset"].includes(
-        (target.type || "").toLowerCase(),
-      ),
+      tag === "INPUT" && !["button", "submit", "reset"].includes((target.type || "").toLowerCase()),
     control = editable || input || tag === "TEXTAREA" || tag === "SELECT";
   if (control) return;
   if (e.key.toLowerCase() === "b") {
@@ -153,11 +145,7 @@ function setDynamicMath(element, tex, fallback) {
   element.textContent = fallback;
   const math = window.MathJax;
   const render = () => {
-    if (
-      element.dataset.mathValue !== tex ||
-      typeof math?.tex2svg !== "function"
-    )
-      return;
+    if (element.dataset.mathValue !== tex || typeof math?.tex2svg !== "function") return;
     try {
       element.replaceChildren(math.tex2svg(tex, { display: false }));
     } catch (e) {
@@ -170,70 +158,28 @@ function setDynamicMath(element, tex, fallback) {
 
 // 放映画笔工具栏、颜色和画布在公共脚本中统一定义。
 const annotationPalette = [
-  [
-    "黑色",
-    "#111111"
-  ],
-  [
-    "红色",
-    "#e00000"
-  ],
-  [
-    "蓝色",
-    "#0055d4"
-  ],
-  [
-    "绿色",
-    "#008000"
-  ],
-  [
-    "黄色",
-    "#ffdf00"
-  ],
-  [
-    "橙色",
-    "#ff8c00"
-  ],
-  [
-    "紫色",
-    "#8000a8"
-  ],
-  [
-    "玫红色",
-    "#c0007a"
-  ],
-  [
-    "深灰色",
-    "#555555"
-  ],
-  [
-    "深红色",
-    "#8b0000"
-  ],
-  [
-    "深蓝色",
-    "#003080"
-  ],
-  [
-    "深绿色",
-    "#005b32"
-  ],
-  [
-    "棕色",
-    "#8b4513"
-  ],
-  [
-    "青色",
-    "#008b8b"
-  ],
-  [
-    "天蓝色",
-    "#00a6d6"
-  ]
+  ["黑色", "#111111"],
+  ["红色", "#e00000"],
+  ["蓝色", "#0055d4"],
+  ["绿色", "#008000"],
+  ["黄色", "#ffdf00"],
+  ["橙色", "#ff8c00"],
+  ["紫色", "#8000a8"],
+  ["玫红色", "#c0007a"],
+  ["深灰色", "#555555"],
+  ["深红色", "#8b0000"],
+  ["深蓝色", "#003080"],
+  ["深绿色", "#005b32"],
+  ["棕色", "#8b4513"],
+  ["青色", "#008b8b"],
+  ["天蓝色", "#00a6d6"],
 ];
-const annotationSwatches = annotationPalette.map(([label, color], index) =>
-  `<button type="button" aria-label="${label}" class="swatch${index === 0 ? " selected" : ""}" data-color="${color}" style="background:${color}"></button>`
-).join("");
+const annotationSwatches = annotationPalette
+  .map(
+    ([label, color], index) =>
+      `<button type="button" aria-label="${label}" class="swatch${index === 0 ? " selected" : ""}" data-color="${color}" style="background:${color}"></button>`,
+  )
+  .join("");
 const sharedAnnotationTemplate = document.createElement("template");
 sharedAnnotationTemplate.innerHTML = `<button aria-expanded="false" aria-label="隐藏书写工具" class="tool-toggle">▲</button>
       <div class="writing-tools" hidden="">
@@ -300,17 +246,12 @@ function prepareSlide(slide) {
     "pointerdown",
     (e) => {
       if (
-        e.target.closest(
-          "button,input,select,option,textarea,.writing-tools,[data-slide-drag]",
-        ) ||
+        e.target.closest("button,input,select,option,textarea,.writing-tools,[data-slide-drag]") ||
         e.target._isDragHandle?.(e)
       )
         return;
       holdFired = false;
-      if (
-        typeof mousePageClickTimer !== "undefined" &&
-        mousePageClickTimer !== null
-      ) {
+      if (typeof mousePageClickTimer !== "undefined" && mousePageClickTimer !== null) {
         clearTimeout(mousePageClickTimer);
         mousePageClickTimer = null;
       }
@@ -384,9 +325,7 @@ function syncPen() {
     slider.style.setProperty("--track-color", sharedPen.color);
     slide
       .querySelectorAll(".swatch")
-      .forEach((b) =>
-        b.classList.toggle("selected", b.dataset.color === sharedPen.color),
-      );
+      .forEach((b) => b.classList.toggle("selected", b.dataset.color === sharedPen.color));
   });
 }
 function initWriting(slide) {
@@ -443,10 +382,7 @@ function initWriting(slide) {
     archiveButton.setAttribute("aria-expanded", "true");
     archiveMenu.style.left = "calc(100% + 8px)";
     archiveMenu.style.right = "auto";
-    if (
-      archiveMenu.getBoundingClientRect().right >
-      slide.getBoundingClientRect().right - 4
-    ) {
+    if (archiveMenu.getBoundingClientRect().right > slide.getBoundingClientRect().right - 4) {
       archiveMenu.style.left = "auto";
       archiveMenu.style.right = "calc(100% + 8px)";
     }
@@ -479,8 +415,7 @@ function initWriting(slide) {
   slide.addEventListener(
     "pointerdown",
     (e) => {
-      if (!bar.hidden && !bar.contains(e.target) && !toggle.contains(e.target))
-        setOpen(false);
+      if (!bar.hidden && !bar.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
     },
     true,
   );
@@ -746,9 +681,7 @@ function applyLessonMode() {
   document.querySelectorAll(".writing-slide").forEach((s) => {
     s.classList.toggle("annotation-active", lessonMode === "whiteboard");
     let indicator = s.querySelector(".mode-indicator");
-    if (indicator)
-      indicator.textContent =
-        lessonMode === "whiteboard" ? "白板模式" : "放映模式";
+    if (indicator) indicator.textContent = lessonMode === "whiteboard" ? "白板模式" : "放映模式";
     let b = s.querySelector(".mode-switch");
     if (b) {
       b.classList.toggle("chosen", lessonMode === "whiteboard");
@@ -766,9 +699,7 @@ applyLessonMode();
 const archiveFormat = "html-math-whiteboard",
   archiveVersion = 1;
 
-const archiveBaseSlides = slides.filter(
-  (s) => !s.classList.contains("blank-board"),
-);
+const archiveBaseSlides = slides.filter((s) => !s.classList.contains("blank-board"));
 let archiveFileInput = null,
   archiveToastTimer = null;
 function archiveSlideId(slide) {
@@ -784,9 +715,7 @@ function archiveCanvasImage(canvas) {
 }
 function archiveFilename(date = new Date()) {
   const z = (n, w = 2) => String(n).padStart(w, "0");
-  const filename = decodeURIComponent(
-    location.pathname.split("/").pop() || document.title,
-  )
+  const filename = decodeURIComponent(location.pathname.split("/").pop() || document.title)
     .replace(/\.[^.]+$/, "")
     .replace(/[\\/:*?"<>|]/g, "_");
   return `${filename}_${date.getFullYear()}-${z(date.getMonth() + 1)}-${z(date.getDate())}_${z(date.getHours())}-${z(date.getMinutes())}-${z(date.getSeconds())}-${z(date.getMilliseconds(), 3)}.json`;
@@ -802,8 +731,7 @@ function captureWhiteboardSession() {
   }
   const boards = boardPages.map((board) => {
     const source = boardSlide.get(board);
-    if (!source || !archiveSlideId(source.slide))
-      throw new Error("白板与放映页的对应关系不完整．");
+    if (!source || !archiveSlideId(source.slide)) throw new Error("白板与放映页的对应关系不完整．");
     return {
       sourceSlideId: archiveSlideId(source.slide),
       sourceReveal: source.reveal,
@@ -813,18 +741,15 @@ function captureWhiteboardSession() {
   const bindings = [];
   for (const [slide, board] of slideBoard) {
     const idx = boardPages.indexOf(board);
-    if (idx < 0 || !archiveSlideId(slide))
-      throw new Error("白板对应关系不完整．");
+    if (idx < 0 || !archiveSlideId(slide)) throw new Error("白板对应关系不完整．");
     bindings.push({ slideId: archiveSlideId(slide), boardIndex: idx });
   }
   const current = slides[page],
     link = lessonMode === "whiteboard" ? boardSlide.get(current) : null;
   const presentation =
-    link?.slide ||
-    (lessonMode === "presentation" ? current : slides[presentationPage]);
+    link?.slide || (lessonMode === "presentation" ? current : slides[presentationPage]);
   const presentationStep =
-    link?.reveal ??
-    (lessonMode === "presentation" ? reveal : presentationReveal);
+    link?.reveal ?? (lessonMode === "presentation" ? reveal : presentationReveal);
   return {
     format: archiveFormat,
     version: archiveVersion,
@@ -837,8 +762,7 @@ function captureWhiteboardSession() {
       mode: lessonMode,
       slideId: archiveSlideId(presentation),
       reveal: presentationStep,
-      boardIndex:
-        lessonMode === "whiteboard" ? boardPages.indexOf(current) : null,
+      boardIndex: lessonMode === "whiteboard" ? boardPages.indexOf(current) : null,
     },
   };
 }
@@ -867,9 +791,7 @@ function archivePickerId() {
   }
   return "whiteboard-" + (hash >>> 0).toString(16);
 }
-const archivePickerTypes = [
-  { description: "白板记录", accept: { "application/json": [".json"] } },
-];
+const archivePickerTypes = [{ description: "白板记录", accept: { "application/json": [".json"] } }];
 async function saveWhiteboardArchive() {
   try {
     const session = captureWhiteboardSession(),
@@ -906,17 +828,12 @@ async function saveWhiteboardArchive() {
       archiveNotify("正在保存白板文件");
     }
   } catch (error) {
-    if (error?.name !== "AbortError")
-      alert("保存失败：" + (error?.message || "请重试．"));
+    if (error?.name !== "AbortError") alert("保存失败：" + (error?.message || "请重试．"));
   }
 }
 function decodeArchiveImage(png) {
   if (png === null) return Promise.resolve(null);
-  if (
-    typeof png !== "string" ||
-    !png.startsWith("data:image/png;base64,") ||
-    png.length > 25000000
-  )
+  if (typeof png !== "string" || !png.startsWith("data:image/png;base64,") || png.length > 25000000)
     throw new Error("笔迹图片格式不正确．");
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -931,11 +848,7 @@ function decodeArchiveImage(png) {
 async function loadWhiteboardSession(data, { confirmReplace = true } = {}) {
   if (!data || data.format !== archiveFormat || data.version !== archiveVersion)
     throw new Error("这不是支持的白板文件．");
-  if (
-    !Array.isArray(data.notes) ||
-    !Array.isArray(data.boards) ||
-    !Array.isArray(data.bindings)
-  )
+  if (!Array.isArray(data.notes) || !Array.isArray(data.boards) || !Array.isArray(data.bindings))
     throw new Error("白板文件内容不完整．");
   const byId = new Map(archiveBaseSlides.map((s) => [archiveSlideId(s), s]));
   if (byId.has("") || byId.size !== archiveBaseSlides.length)
@@ -944,21 +857,12 @@ async function loadWhiteboardSession(data, { confirmReplace = true } = {}) {
   const seenNotes = new Set(),
     seenBindings = new Set();
   for (const note of data.notes) {
-    if (
-      !note ||
-      !byId.has(note.slideId) ||
-      seenNotes.has(note.slideId) ||
-      note.png === null
-    )
+    if (!note || !byId.has(note.slideId) || seenNotes.has(note.slideId) || note.png === null)
       throw new Error("有笔迹无法对应课件页面．");
     seenNotes.add(note.slideId);
   }
   for (const board of data.boards) {
-    if (
-      !board ||
-      !byId.has(board.sourceSlideId) ||
-      !validStep(board.sourceReveal)
-    )
+    if (!board || !byId.has(board.sourceSlideId) || !validStep(board.sourceReveal))
       throw new Error("有白板无法对应课件页面．");
   }
   for (const binding of data.bindings) {
@@ -986,10 +890,7 @@ async function loadWhiteboardSession(data, { confirmReplace = true } = {}) {
         view.boardIndex >= data.boards.length))
   )
     throw new Error("白板页面位置不正确．");
-  if (
-    view.mode === "whiteboard" &&
-    data.boards[view.boardIndex].sourceSlideId !== view.slideId
-  )
+  if (view.mode === "whiteboard" && data.boards[view.boardIndex].sourceSlideId !== view.slideId)
     throw new Error("当前白板与放映页的对应关系不正确．");
   if (
     !data.pen ||
@@ -1006,12 +907,8 @@ async function loadWhiteboardSession(data, { confirmReplace = true } = {}) {
   if (
     confirmReplace &&
     (boardPages.length > 0 ||
-      archiveBaseSlides.some((s) =>
-        archiveCanvasImage(s.querySelector(".writing-canvas")),
-      )) &&
-    !confirm(
-      "读取会替换当前课件中的手写内容和白板页。尚未保存的内容将丢失，是否继续？",
-    )
+      archiveBaseSlides.some((s) => archiveCanvasImage(s.querySelector(".writing-canvas")))) &&
+    !confirm("读取会替换当前课件中的手写内容和白板页。尚未保存的内容将丢失，是否继续？")
   )
     return false;
   function paint(slide, image) {
@@ -1041,9 +938,7 @@ async function loadWhiteboardSession(data, { confirmReplace = true } = {}) {
     paint(boardPages[boardPages.length - 1], boardImages[i]);
   });
   slideBoard.clear();
-  data.bindings.forEach((b) =>
-    slideBoard.set(byId.get(b.slideId), boardPages[b.boardIndex]),
-  );
+  data.bindings.forEach((b) => slideBoard.set(byId.get(b.slideId), boardPages[b.boardIndex]));
   sharedPen.color = data.pen.color;
   sharedPen.width = data.pen.width;
   syncPen();
@@ -1112,23 +1007,10 @@ document.querySelectorAll(".exercise-solution-toggle").forEach((button) => {
 /* 鼠标模式下单击下一步、双击上一步，交互控件不参与翻步。 */
 let mousePageClickTimer = null;
 stage.addEventListener("click", (e) => {
-  if (
-    e.button !== 0 ||
-    e.detail === 0 ||
-    e.ctrlKey ||
-    e.altKey ||
-    e.metaKey ||
-    e.shiftKey
-  )
-    return;
+  if (e.button !== 0 || e.detail === 0 || e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) return;
   const slide = slides[page],
     target = e.target;
-  if (
-    !slide ||
-    slide.classList.contains("annotation-active") ||
-    !slide.contains(target)
-  )
-    return;
+  if (!slide || slide.classList.contains("annotation-active") || !slide.contains(target)) return;
   if (
     target.closest(
       "button,input,select,textarea,a,[contenteditable],.writing-tools,.exercise-solution-panel,[data-slide-drag],canvas:not(.writing-canvas)",
@@ -1140,11 +1022,7 @@ stage.addEventListener("click", (e) => {
     clearTimeout(mousePageClickTimer);
     mousePageClickTimer = setTimeout(() => {
       mousePageClickTimer = null;
-      if (
-        slides[page] === slide &&
-        !slide.classList.contains("annotation-active")
-      )
-        next();
+      if (slides[page] === slide && !slide.classList.contains("annotation-active")) next();
     }, 330);
   } else if (e.detail === 2) {
     clearTimeout(mousePageClickTimer);
