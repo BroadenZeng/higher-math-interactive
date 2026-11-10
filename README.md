@@ -6,7 +6,7 @@
 
 **[打开课件目录 →](https://broadenzeng.github.io/higher-math-interactive/)**
 
-当前公开版本：**v0.1.0** · [更新记录](CHANGELOG.md)
+当前公开版本：**v0.1.1** · [更新记录](CHANGELOG.md)
 
 ## 课件目录
 

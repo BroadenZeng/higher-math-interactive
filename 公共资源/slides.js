@@ -168,16 +168,130 @@ function setDynamicMath(element, tex, fallback) {
   else if (typeof math?.tex2svg === "function") render();
 }
 
-const templateSlide =
-  document.querySelector("#annotation-template")?.content ||
-  document.querySelector(".writing-slide");
+// 放映画笔工具栏、颜色和画布在公共脚本中统一定义。
+const annotationPalette = [
+  [
+    "黑色",
+    "#111111"
+  ],
+  [
+    "红色",
+    "#e00000"
+  ],
+  [
+    "蓝色",
+    "#0055d4"
+  ],
+  [
+    "绿色",
+    "#008000"
+  ],
+  [
+    "黄色",
+    "#ffdf00"
+  ],
+  [
+    "橙色",
+    "#ff8c00"
+  ],
+  [
+    "紫色",
+    "#8000a8"
+  ],
+  [
+    "玫红色",
+    "#c0007a"
+  ],
+  [
+    "深灰色",
+    "#555555"
+  ],
+  [
+    "深红色",
+    "#8b0000"
+  ],
+  [
+    "深蓝色",
+    "#003080"
+  ],
+  [
+    "深绿色",
+    "#005b32"
+  ],
+  [
+    "棕色",
+    "#8b4513"
+  ],
+  [
+    "青色",
+    "#008b8b"
+  ],
+  [
+    "天蓝色",
+    "#00a6d6"
+  ]
+];
+const annotationSwatches = annotationPalette.map(([label, color], index) =>
+  `<button type="button" aria-label="${label}" class="swatch${index === 0 ? " selected" : ""}" data-color="${color}" style="background:${color}"></button>`
+).join("");
+const sharedAnnotationTemplate = document.createElement("template");
+sharedAnnotationTemplate.innerHTML = `<button aria-expanded="false" aria-label="隐藏书写工具" class="tool-toggle">▲</button>
+      <div class="writing-tools" hidden="">
+        <button aria-label="画笔" class="pen" hidden=""></button>
+        <div class="pen-options">
+          <div class="palette">${annotationSwatches}</div>
+          <div class="width-control">
+            <input aria-label="画笔粗细" class="width-slider" max="16" min="1" type="range" value="3" />
+          </div>
+          <input class="ink-color" type="hidden" value="#111111" />
+        </div>
+        <div class="tool-row">
+          <button aria-label="鼠标" class="pointer-mode" title="鼠标">
+            <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 3v15l4-4 3 6 3-1.5-3-6h5z"></path></svg></button
+          ><button aria-label="新增白板页" class="add-board" title="新增白板页">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M5 3h10l4 4v14H5z M15 3v4h4 M12 10v7 M8.5 13.5h7"></path>
+            </svg></button
+          ><button aria-label="切换放映与白板模式" class="mode-switch" title="切换放映与白板模式">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M4 5h16v12H4z M8 21l4-4 4 4 M9 10l2 2 4-4"></path>
+            </svg></button
+          ><button aria-label="撤销" class="undo" title="撤销">↶</button
+          ><button aria-label="重做" class="redo" title="重做">↷</button>
+        </div>
+        <div class="page-navigation">
+          <button aria-label="橡皮" class="eraser" title="橡皮">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M3 15.5 12.6 5.9a2.8 2.8 0 0 1 4 0l3.5 3.5a2.8 2.8 0 0 1 0 4L14 19.5H8z M8 10.5l6 6 M14 19.5h7"
+              ></path>
+            </svg></button
+          ><button aria-label="清空本页" class="clear" title="清空本页">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M4 7h16 M9 7V4h6v3 M7 7l1 13h8l1-13 M10 10v7 M14 10v7"></path>
+            </svg></button
+          ><button class="archive-toggle" aria-label="保存和读取" title="保存和读取" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h7l2 2h9v11H3z M3 6v13" /></svg></button
+          ><button aria-label="上一页" class="page-prev" title="上一页">◀</button
+          ><button aria-label="下一页" class="page-next" title="下一页">▶</button>
+          <div class="archive-menu" hidden>
+            <button class="archive-save" type="button">保存</button
+            ><button class="archive-load" type="button">读取</button>
+          </div>
+        </div>
+      </div>
+      <canvas aria-label="课堂手写层" class="writing-canvas" height="900" width="1600"></canvas
+    >`;
+const templateSlide = sharedAnnotationTemplate.content;
 function prepareSlide(slide) {
-  if (!slide.classList.contains("writing-slide")) {
-    slide.classList.add("writing-slide", "annotation-page");
-    [".tool-toggle", ".writing-tools", ".writing-canvas"].forEach((sel) =>
-      slide.appendChild(templateSlide.querySelector(sel).cloneNode(true)),
-    );
-  } else slide.classList.add("annotation-page");
+  slide.classList.add("writing-slide", "annotation-page");
+  // 兼容旧课件内嵌工具栏；统一替换为公共组件，保留页面原有画布。
+  [".tool-toggle", ".writing-tools"].forEach((sel) => {
+    slide.querySelector(sel)?.remove();
+    slide.appendChild(templateSlide.querySelector(sel).cloneNode(true));
+  });
+  if (!slide.querySelector(".writing-canvas"))
+    slide.appendChild(templateSlide.querySelector(".writing-canvas").cloneNode(true));
   let hold = null,
     startX = 0,
     startY = 0,
