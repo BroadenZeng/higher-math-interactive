@@ -15,6 +15,8 @@
 | 3.3 | [洛必达法则](https://broadenzeng.github.io/higher-math-interactive/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/3.3%20%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99.html) |
 | 3.4 | [函数的单调性与曲线的凹凸性](https://broadenzeng.github.io/higher-math-interactive/3.4%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E4%B8%8E%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%87%B9%E5%87%B8%E6%80%A7/3.4%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E4%B8%8E%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%87%B9%E5%87%B8%E6%80%A7.html) |
 
+| 3.5 | [函数的极值与最值](https://broadenzeng.github.io/higher-math-interactive/3.5%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E5%80%BC%E4%B8%8E%E6%9C%80%E5%80%BC/3.5%20%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E5%80%BC%E4%B8%8E%E6%9C%80%E5%80%BC.html) |
+
 其他章节持续建设中。
 
 ## 课件特点

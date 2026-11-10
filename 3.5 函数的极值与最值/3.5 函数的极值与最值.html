@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.5 函数的极值与最值</title>
+<link rel="stylesheet" href="../公共资源/style.css"><link rel="stylesheet" href="本节.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="../公共资源/mathjax-tex-svg.js"></script><script defer src="../公共资源/slides.js"></script><script defer src="图像.js"></script><script defer src="切线观察.js"></script></head>
+<body><main id="viewport"><div id="stage">
+<section class="slide cover"><div><p>第三章　微分中值定理与导数的应用</p><p>第五节　函数的极值与最值</p></div></section>
+<section class="slide intro-question"><div class="body">
+<div class="intro-questions"><p class="question">如何判断一个区间内可导的函数<br>驻点是不是极值点？</p><p class="question step intro-followup" data-step="1">是极大值点还是极小值点？</p></div>
+</div></section>
+<section class="slide tangent-observation">
+<h1>观察：候选点两侧怎样变化？</h1>
+<div class="body">
+<div class="tangent-heading"><p>从左向右拖动切线，观察切线的变化．</p><select id="bendFunction" aria-label="选择观察函数"><option value="square">f(x) = x²</option><option value="arch">f(x) = 4x − x²</option></select></div>
+<div class="growth-layout bend-layout">
+<div><canvas id="bendGraph" width="1100" height="550" aria-label="拖动切线观察驻点两侧的斜率"></canvas><p id="slope35" class="tangent-slope"></p></div>
+<div class="growth-control bend-controls">
+
+<input id="bendSlider" type="hidden" value="-1">
+
+
+</div></div>
+</div></section>
+<section class="slide first-test"><h1>一阶导数判别法</h1><div class="body">
+<p>设 \(f\) 在 \(x_0\) 处连续，在其两侧邻域内可导．</p>
+<div class="pair">
+<div><svg class="curve" data-kind="max" role="img" aria-label="先增后减"></svg><p class="eq">\(f':+\longrightarrow-\)　极大值</p></div>
+<div><svg class="curve" data-kind="min" role="img" aria-label="先减后增"></svg><p class="eq">\(f':-\longrightarrow+\)　极小值</p></div>
+</div></div></section>
+<section class="slide slope-bridge"><h1>切线斜率怎样变化？</h1><div class="body">
+<p>切线斜率是 \(f'(x)\)；二阶导数描述斜率的变化率：</p>
+<p class="eq">\(f''(x)=(f'(x))'\)</p>
+<p>\(f(x)=x^2\)：\(f'(x)=2x\) 递增，\(f''(x)=2>0\)．</p>
+<p>\(f(x)=4x-x^2\)：\(f'(x)=4-2x\) 递减，\(f''(x)=-2<0\)．</p>
+<p class="question">能否通过驻点处的二阶导数判断极值？</p></div></section>
+<section class="slide second-test"><h1>二阶导数判别法</h1><div class="body">
+
+<p>设 \(f\) 在 \(x_0\) 的邻域内可导，\(f'(x_0)=0\)，且 \(f''(x_0)\) 存在．</p>
+<div >
+<p class="eq">\(f''(x_0)>0\quad\Longrightarrow\quad f(x_0)\text{ 是极小值}\)</p>
+<p class="eq">\(f''(x_0)<0\quad\Longrightarrow\quad f(x_0)\text{ 是极大值}\)</p>
+<p class="eq step" data-step="1">\(f''(x_0)=0\quad\Longrightarrow\quad\text{此判别法无法判断}\)</p>
+</div>
+
+</div></section>
+<section class="slide example-slide example35"><h1>例 1</h1><div class="body">
+<p>求函数 \(f(x)=x^3-3x\) 的极值．</p>
+<button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="example35-answer">解：</button>
+<div class="exercise-solution-panel" id="example35-answer" hidden>
+<p>\(f'(x)=3x^2-3=3(x-1)(x+1)\)．</p>
+<p class="step" data-step="1">令 \(f'(x)=0\)，得驻点 \(x=-1,1\)；\(f''(x)=6x\)．</p>
+<p class="step" data-step="2">\(f''(-1)=-6<0\)，极大值为 \(f(-1)=2\)；</p>
+<p class="step" data-step="2">\(f''(1)=6>0\)，极小值为 \(f(1)=-2\)．</p>
+</div></div></section>
+<section class="slide "><h1>二阶导数为零呢？</h1><div class="body">
+<p>下面三个函数，在原点都有 \(f'(0)=f''(0)=0\)．</p>
+<div class="triple">
+<div><p class="eq">\(y=x^4\)</p><svg class="curve" data-kind="quartic-min"></svg></div>
+<div><p class="eq">\(y=-x^4\)</p><svg class="curve" data-kind="quartic-max"></svg></div>
+<div><p class="eq">\(y=x^3\)</p><svg class="curve" data-kind="cubic"></svg></div>
+</div>
+<div class="zero-answer"><p class="question zero-question">原点都是极值点吗？</p><div class="step zero-labels" data-step="1"><span>极小值</span><span>极大值</span><span>非极值</span></div></div>
+<p class="step" data-step="1">二阶导数为零，不能用这个判别法下结论．</p>
+</div></section>
+<section class="slide "><h1>极值就是最值吗？</h1><div class="body">
+<p>仍看 \(f(x)=x^3-3x\)，这次限定 \(x\in[-3,3]\)．</p>
+<p>已知极大值为 \(2\)，极小值为 \(-2\)．</p>
+<p class="question">它们是这个区间上的最大值与最小值吗？</p>
+<svg class="curve closed-wide" data-kind="closed" role="img" aria-label="闭区间上的三次函数"></svg>
+</div></section>
+<section class="slide comparison35"><h1>把候选值放在一起比较</h1><div class="body">
+<p>\(f(x)=x^3-3x,\quad x\in[-3,3]\)．</p>
+<button class="exercise-solution-toggle" type="button" aria-expanded="false" aria-controls="comparison35-answer">解：</button><div class="exercise-solution-panel" id="comparison35-answer" hidden><p>函数在闭区间上连续，内部可导；由 \(f'(x)=3(x^2-1)=0\)，得 \(x=\pm1\)．</p>
+<p>比较两端点与两个驻点处的函数值：</p>
+<table><tr><td>\(x\)</td><td>\(-3\)</td><td>\(-1\)</td><td>\(1\)</td><td>\(3\)</td></tr>
+<tr class="step" data-step="1"><td>\(f(x)\)</td><td>\(-18\)</td><td>\(2\)</td><td>\(-2\)</td><td>\(18\)</td></tr></table>
+<div class="step" data-step="2"><p>最大值为 \(18\)，在 \(x=3\) 处取得；</p><p>最小值为 \(-18\)，在 \(x=-3\) 处取得．</p></div></div>
+</div></section>
+<section class="slide method35"><h1>闭区间上怎样求最值？</h1><div class="body">
+<p>连续函数在闭区间 \([a,b]\) 上一定能取得最大值和最小值．</p>
+<div class="step" data-step="1"><p>① 找出区间内部的驻点和不可导点．</p><p>② 计算这些点与两个端点处的函数值．</p><p>③ 比较大小，写出最值及取得最值的位置．</p></div>
+<p class="question step" data-step="2">求最值，不必先判每个驻点是不是极值点．</p>
+</div></section>
+<section class="slide example-slide practice35"><h1>求极值与最值</h1><div class="body">
+<p class="eq">\(f(x)=x^3-3x^2+2,\quad x\in[-1,3]\)</p>
+<p class="eq">（1）求极值　　（2）求最大值与最小值</p>
+<button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="practice35-answer">解：</button>
+<div class="exercise-solution-panel" id="practice35-answer" hidden>
+<p>\(f'(x)=3x(x-2)\)，内部驻点为 \(x=0,2\)，无不可导点．</p><p>\(f''(x)=6x-6\)．</p>
+<p class="step" data-step="1">\(f''(0)=-6<0\)，极大值 \(f(0)=2\)；\(f''(2)=6>0\)，极小值 \(f(2)=-2\)．</p>
+<p class="step" data-step="2">函数在闭区间上连续，比较端点和内部驻点处的函数值：</p>
+<p class="eq step" data-step="2">\(f(-1)=-2,\quad f(0)=2,\quad f(2)=-2,\quad f(3)=2\)．</p>
+<p class="step" data-step="3">最大值为 \(2\)，在 \(x=0,3\) 处取得；</p>
+<p class="step" data-step="3">最小值为 \(-2\)，在 \(x=-1,2\) 处取得．</p>
+</div></div></section>
+</div></main></body></html>
+
+
+
+

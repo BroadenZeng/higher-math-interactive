@@ -602,7 +602,7 @@
         white-space: nowrap;
       }
     </style>
-  </head>
+  <style>.inequality-proof .exercise-solution-toggle,.inequality-proof .exercise-solution-toggle[aria-expanded="true"]{top:430px}.inequality-proof .exercise-solution-panel{top:425px}.inequality-proof .exercise-solution-panel>p:first-child{padding-left:75px}</style></head>
   <body class="lesson-34">
     <main id="viewport">
       <div id="stage">
@@ -1215,6 +1215,27 @@
             </p>
           </div>
         </section>
+        <section class="slide example-slide inequality-proof"><h1>凹凸性与指数不等式</h1><div class="body">
+<p>对任意 \(a,b\in\mathbb R\)，</p>
+<div class="eq">\[e^a+e^b\geqslant 2e^{\frac{a+b}{2}}.\]</div>
+
+<button class="exercise-solution-toggle" type="button" aria-expanded="false" aria-controls="proof-exp34">证：</button>
+<div class="exercise-solution-panel" id="proof-exp34" hidden>
+<p>令 \(f(x)=e^x\)，则 \(f''(x)=e^x>0\)．</p>
+<p>由曲线位于弦的下方，取中点得</p>
+<div class="eq">\[e^{\frac{a+b}{2}}\leqslant\frac{e^a+e^b}{2}.\]</div>
+
+</div></div></section>
+        <section class="slide example-slide inequality-proof"><h1>基本不等式</h1><div class="body">
+<p>对任意 \(a,b>0\)，</p>
+<div class="eq">\[\frac{a+b}{2}\geqslant\sqrt{ab}.\]</div>
+
+<button class="exercise-solution-toggle" type="button" aria-expanded="false" aria-controls="proof-amgm34">证：</button>
+<div class="exercise-solution-panel" id="proof-amgm34" hidden>
+<p>令 \(f(x)=\ln x\)，则 \(f''(x)=-1/x^2<0\)．由曲线位于弦的上方，</p>
+<div class="eq">\[\ln\frac{a+b}{2}\geqslant\frac{\ln a+\ln b}{2}=\ln\sqrt{ab}.\]</div>
+<p>由 \(\ln x\) 严格递增，得到所证不等式．</p>
+</div></div></section>
         <section class="slide summary-slide">
           <h1>本节小结</h1>
           <div class="body">

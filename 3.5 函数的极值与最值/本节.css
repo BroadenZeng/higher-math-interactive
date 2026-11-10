@@ -1,0 +1,80 @@
+
+/* Public presentation, typography, reveal and writing tools follow 3.3/3.4. */
+.pair,.triple {display:grid;grid-template-columns:repeat(2,1fr);gap:60px;text-align:center}
+.triple {grid-template-columns:repeat(3,1fr);gap:24px}
+.curve {display:block;width:100%;height:350px}
+.curve text {stroke:none;font-weight:normal}
+.summary {margin-top:60px!important}
+.triple .curve {height:220px}
+.closed-wide {height:340px;max-width:850px;margin:0 auto}
+.detail-page .exercise-solution-panel {top:260px}
+.detail-page .exercise-solution-toggle,.detail-page .exercise-solution-toggle[aria-expanded="true"] {top:266px}
+.detail-page .exercise-solution-panel p {margin:12px 0}
+
+.tangent-observation .body {margin-top:30px}
+.tangent-observation .bend-layout {margin-top:22px}
+.tangent-observation .bend-controls p {margin:16px 0}
+.tangent-observation .growth-layout.bend-layout {
+  display:grid;
+  grid-template-columns:900px 1fr;
+  gap:36px;
+  align-items:center;
+}
+.tangent-observation .growth-layout.bend-layout canvas {
+  width:900px;
+  height:450px;
+}
+.tangent-observation .bend-layout .bend-controls {
+  display:block;
+  width:auto;
+}
+.tangent-observation .bend-controls select {max-width:100%;font-size:25px;}
+.tangent-observation .bend-layout .growth-prompt {font-size:28px;line-height:1.8;}
+.tangent-observation .tangent-slope { text-align:center; margin:12px 0 0; color:#17365d; font-size:32px; }
+
+.intro-question .body { position:absolute; inset:0; margin:0; display:flex; align-items:center; justify-content:center; }
+.intro-question .body .question { font-size:48px; line-height:1.8; margin:0 !important; }
+
+.tangent-heading { display:flex; align-items:center; justify-content:space-between; gap:32px; }
+.tangent-heading select { font-size:25px; color:#17365d; }
+
+.intro-questions { text-align:center; }
+.intro-question .body .intro-followup { margin-top:65px !important; }
+.tangent-heading { justify-content:flex-start; gap:20px; }
+.tangent-observation .growth-layout.bend-layout { display:flex; justify-content:center; }
+
+.practice35 .exercise-solution-panel { top:340px; }
+.practice35 .exercise-solution-toggle, .practice35 .exercise-solution-toggle[aria-expanded="true"] { top:346px; }
+.practice35 .exercise-solution-panel p { margin:9px 0; }
+
+.zero-answer { display:grid; align-items:center; margin:35px 0; }
+.zero-answer > * { grid-area:1 / 1; }
+.zero-answer .question { margin:0 !important; }
+.zero-labels { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; text-align:center; color:#17365d; font-size:36px; background:#fff; }
+
+.comparison35 .exercise-solution-toggle { top:250px; left:125px; }
+.comparison35 .exercise-solution-panel { top:250px; left:125px; right:125px; }
+.comparison35 .exercise-solution-panel > p:first-child { padding-left:75px; margin-top:0; }
+
+/* Teaching groups and answer alignment */
+.tangent-heading { gap:12px; }
+.tangent-heading select { border:1px solid #a8bbce; border-radius:3px; padding:6px 10px; background:#fff; }
+.slope-bridge .body > p:nth-of-type(3) { margin-top:38px; }
+.slope-bridge .body .question { margin-top:45px !important; }
+.second-test .body > div { margin-top:48px; }
+.second-test .body .eq { margin:27px 0; }
+.example35 .exercise-solution-toggle, .example35 .exercise-solution-toggle[aria-expanded="true"] { top:285px; }
+.example35 .exercise-solution-panel { top:280px; }
+.example35 .exercise-solution-panel > p { margin:15px 0; padding-left:75px; }
+.example35 .exercise-solution-panel > p:nth-child(2) { margin-top:30px; }
+.example35 .exercise-solution-panel > p:nth-child(3) { margin-top:30px; }
+.comparison35 .exercise-solution-toggle { top:265px; }
+.comparison35 .exercise-solution-panel { top:260px; }
+.comparison35 .exercise-solution-panel p { padding-left:75px; }
+.comparison35 .exercise-solution-panel table { margin-top:30px; margin-bottom:30px; }
+.method35 .body > .step { margin-top:35px; }
+.method35 .body .question { margin-top:55px !important; }
+.practice35 .exercise-solution-panel p { padding-left:75px; }
+.practice35 .exercise-solution-panel p:nth-child(3), .practice35 .exercise-solution-panel p:nth-child(4) { margin-top:22px; }
+.comparison35 .exercise-solution-toggle { top:287px; left:125px; }
+.triple .curve { height:245px; }
