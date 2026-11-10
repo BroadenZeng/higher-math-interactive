@@ -995,7 +995,7 @@ document.querySelectorAll(".exercise-solution-toggle").forEach((button) => {
   });
 });
 
-/* 鼠标模式下单击下一页、双击上一页，交互控件不参与翻页。 */
+/* 鼠标模式下单击下一步、双击上一步，交互控件不参与翻步。 */
 let mousePageClickTimer = null;
 stage.addEventListener("click", (e) => {
   if (
@@ -1030,12 +1030,12 @@ stage.addEventListener("click", (e) => {
         slides[page] === slide &&
         !slide.classList.contains("annotation-active")
       )
-        navigatePage(1);
+        next();
     }, 330);
   } else if (e.detail === 2) {
     clearTimeout(mousePageClickTimer);
     mousePageClickTimer = null;
-    navigatePage(-1);
+    prev();
   }
 });
 

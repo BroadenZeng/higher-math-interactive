@@ -165,3 +165,33 @@
 /* 防止触屏长按误选课件文字，保留可编辑区域的文字操作。 */
 .slide { -webkit-user-select: none; user-select: none; }
 .slide input, .slide textarea, .slide [contenteditable='true'] { -webkit-user-select: text; user-select: text; }
+
+
+/* 课堂放映字号：封面保持原有层次，其他课件共用以下尺寸。 */
+:root{--cover-heading-size:76px;--cover-subtitle-size:54px;--slide-title-size:42px;--slide-body-size:33px;--slide-formula-size:36px;--slide-question-size:40px;--slide-diagram-size:23px}
+.cover>div:first-child p:first-child{font-size:var(--cover-heading-size)}
+.cover>div:first-child p:last-child{font-size:var(--cover-subtitle-size)}
+.lesson-34 .cover>div:first-child p:last-child{font-size:48px}
+.slide h1{font-size:var(--slide-title-size)}
+.slide:not(.cover) .body{font-size:var(--slide-body-size)}
+.slide:not(.cover) .body .eq{font-size:var(--slide-formula-size)}
+.slide:not(.cover) .writing-question{font-size:var(--slide-question-size)}
+.slide:not(.cover) .exercise-solution-panel{font-size:var(--slide-body-size)}
+.slide:not(.cover) .exercise-solution-panel .solution-display,.slide:not(.cover) .exercise-solution-formula{font-size:var(--slide-formula-size)}
+.slide:not(.cover) .exercise-solution-toggle{font-size:34px}
+.slide:not(.cover) .chord-controls,.slide:not(.cover) .chord-legend,.slide:not(.cover) .chord-parameter{font-size:var(--slide-diagram-size)}
+.slide:not(.cover) .chord-coordinate{font-size:24px}
+.slide:not(.cover) .chord-controls .chord-prompt{font-size:26px}
+.slide:not(.cover) .growth-legend{font-size:28px!important}
+.slide:not(.cover) .growth-control,.slide:not(.cover) .growth-control .growth-prompt{font-size:28px}
+.practice-page .exercise-solution-panel{top:150px;padding-top:0}
+.practice-page .exercise-solution-panel>p:first-child{margin:0 0 12px;padding-left:75px}
+.practice-page .exercise-solution-toggle{top:156px}
+
+
+/* 解答首行与“解：”同行；收起后仍保留原有按钮位置。 */
+.example-slide .exercise-solution-panel{top:330px;padding-top:0}
+.example-slide .exercise-solution-panel>p:first-child{margin:0 0 12px;padding-left:75px}
+.example-slide .exercise-solution-toggle[aria-expanded="true"]{top:336px}
+.writing-slide:not(.example-slide):not(.practice-page) .exercise-solution-panel:has(>.exercise-solution-formula){top:150px;padding-top:0}
+.writing-slide:not(.example-slide):not(.practice-page):has(.exercise-solution-panel:not([hidden])>.exercise-solution-formula) .exercise-solution-toggle{top:175px}
