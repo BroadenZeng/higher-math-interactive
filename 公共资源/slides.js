@@ -187,7 +187,7 @@ function prepareSlide(slide) {
     (e) => {
       if (
         e.target.closest(
-          "button,input,select,option,textarea,.writing-tools",
+          "button,input,select,option,textarea,.writing-tools,[data-slide-drag]",
         ) ||
         e.target._isDragHandle?.(e)
       )
@@ -1017,7 +1017,7 @@ stage.addEventListener("click", (e) => {
     return;
   if (
     target.closest(
-      "button,input,select,textarea,a,[contenteditable],.writing-tools,.exercise-solution-panel,canvas:not(.writing-canvas)",
+      "button,input,select,textarea,a,[contenteditable],.writing-tools,.exercise-solution-panel,[data-slide-drag],canvas:not(.writing-canvas)",
     )
   )
     return;

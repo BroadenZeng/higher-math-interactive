@@ -195,3 +195,19 @@
 .example-slide .exercise-solution-toggle[aria-expanded="true"]{top:336px}
 .writing-slide:not(.example-slide):not(.practice-page) .exercise-solution-panel:has(>.exercise-solution-formula){top:150px;padding-top:0}
 .writing-slide:not(.example-slide):not(.practice-page):has(.exercise-solution-panel:not([hidden])>.exercise-solution-formula) .exercise-solution-toggle{top:175px}
+
+/* 图中公式可拖动，文字保持水平并避免触发触屏手势。 */
+.chord-coordinate[data-slide-drag]{pointer-events:auto;touch-action:none;cursor:grab}
+.chord-coordinate[data-slide-drag] *{pointer-events:none}
+
+
+/* 图像中的数学标记及函数选项使用公式排版。 */
+.graph-math-layer{position:absolute;inset:0;pointer-events:none;z-index:2}
+.graph-math-label{position:absolute;color:#526c86;font-size:21px;line-height:1;white-space:nowrap;pointer-events:none}
+.math-function-menu{position:relative;display:inline-block;flex:none;z-index:4;font-size:23px;line-height:1.25;color:#17365d}
+.math-function-menu .math-function-current,.math-function-menu .math-function-options button{font:inherit;color:inherit;background:#fff;border:2px solid #17365d;border-radius:4px;padding:6px 12px;cursor:pointer;text-align:left;white-space:nowrap}
+.math-function-menu .math-function-current::after{content:'▾';margin-left:12px;font-size:16px}
+.math-function-options{position:absolute;bottom:calc(100% + 3px);left:0;min-width:100%;padding:4px;background:#fff;border:1px solid #aab9c8;border-radius:4px;box-shadow:0 3px 10px #0002;z-index:10}
+.math-function-options[hidden]{display:none}
+.math-function-menu .math-function-options button{display:block;width:100%;border:0;padding:7px 10px}
+.math-function-menu .math-function-options button:hover,.math-function-menu .math-function-options button:focus{background:#eaf1f8}

@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>3.4 函数的单调性与曲线的凹凸性</title>
+    <link rel="stylesheet" href="../公共资源/style.css" />
+    <script>
+      window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+    </script>
+    <script defer src="../公共资源/mathjax-tex-svg.js"></script>
+    <script defer src="../公共资源/slides.js"></script>
+    <script defer src="图像.js"></script>
+    <style id="curve-intro-style">
+      .curve-intro .body {
+        margin-top: 55px;
+      }
+      .curve-intro .body > p {
+        margin: 20px 0;
+      }
+      .curve-intro .body ul {
+        margin: 22px 0 0 42px;
+      }
+      .curve-intro .body li {
+        padding: 9px 0;
+      }
+      .curve-intro-cases {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin: 40px 0 0;
+      }
+      .curve-intro-cases > div {
+        padding: 18px 24px;
+        border-left: 5px solid #2f75b5;
+        background: #f2f6fa;
+      }
+      .curve-intro-cases strong {
+        color: #17365d;
+      }
+      .curve-intro-cases p {
+        margin: 14px 0 0;
+      }
+      .curve-intro .body .question {
+        font-size: 33px;
+        margin: 48px 0 0 !important;
+      }
+      .curve-intro-transition {
+        margin-top: 36px;
+      }
+      .curve-intro-transition p {
+        margin: 12px 0;
+      }
+    </style>
+    <style id="curve-intro-charts">
+      .curve-intro .intro-chart-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 760px) 1fr;
+        gap: 36px;
+        align-items: center;
+        margin-top: 16px;
+      }
+      .intro-chart svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .intro-chart .chart-grid {
+        fill: none;
+        stroke: #dbe4ed;
+        stroke-width: 2;
+      }
+      .intro-chart .chart-axis {
+        fill: none;
+        stroke: #6d8194;
+        stroke-width: 2.5;
+      }
+      .intro-chart .chart-tick,
+      .intro-chart .chart-axis-title {
+        font:
+          20px "Microsoft YaHei",
+          sans-serif;
+        fill: #526b80;
+      }
+      .intro-chart .chart-a,
+      .intro-chart .chart-b {
+        fill: none;
+        stroke-width: 5;
+        stroke-linecap: round;
+      }
+      .intro-chart .chart-a {
+        stroke: #205786;
+      }
+      .intro-chart .chart-b {
+        stroke: #c26340;
+        stroke-dasharray: 12 8;
+      }
+      .intro-chart .chart-a-dot {
+        fill: #205786;
+      }
+      .intro-chart .chart-b-dot {
+        fill: #c26340;
+        stroke: white;
+        stroke-width: 1.5;
+      }
+      .intro-chart-notes {
+        font-size: 27px;
+        line-height: 1.45;
+      }
+      .intro-chart-notes p {
+        margin: 14px 0;
+      }
+      .intro-chart-notes strong {
+        color: #17365d;
+      }
+      .chart-key {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #205786;
+        vertical-align: middle;
+        margin-right: 14px;
+      }
+      .chart-key-b {
+        background: #c26340;
+      }
+      .intro-chart-notes .chart-note {
+        font-size: 20px;
+        color: #687b8d;
+        margin-top: 25px;
+      }
+      .curve-intro:has(.intro-chart) .body {
+        margin-top: 38px;
+      }
+      .curve-intro:has(.intro-chart) .body .question {
+        margin: 18px 0 0 !important;
+        font-size: 30px;
+      }
+      .curve-intro:has(.intro-chart) .curve-intro-transition {
+        margin-top: 24px;
+      }
+      .curve-intro:has(.intro-chart) .curve-intro-transition p {
+        margin: 0;
+      }
+    </style>
+    <style id="phone-intro-layout">
+      .phone-intro .intro-chart-layout {
+        grid-template-columns: minmax(0, 880px) 180px;
+        gap: 24px;
+        width: min(100%, 1084px);
+        margin: 12px auto 0;
+      }
+      .phone-intro .intro-chart-notes {
+        font-size: 27px;
+      }
+      .phone-intro .chart-a-dot,
+      .phone-intro .chart-b-dot {
+        stroke: none;
+      }
+      .phone-intro .phone-shared-marker {
+        fill: url(#phone-shared-dot);
+      }
+      .phone-intro .body .question {
+        text-align: center;
+        margin: 18px auto 0 !important;
+      }
+      .phone-intro .curve-intro-transition {
+        font-size: 25px;
+        color: #758494;
+        text-align: center;
+        margin-top: 24px;
+      }
+    </style>
+    <style id="blogger-intro-layout">
+      .blogger-intro .intro-chart-layout {
+        grid-template-columns: minmax(0, 880px) 180px;
+        gap: 24px;
+        width: min(100%, 1084px);
+        margin: 12px auto 0;
+      }
+      .blogger-intro .intro-chart-notes {
+        font-size: 27px;
+      }
+      .blogger-intro .chart-a-dot,
+      .blogger-intro .chart-b-dot {
+        stroke: none;
+      }
+      .blogger-intro .blogger-shared-marker {
+        fill: url(#blogger-shared-dot);
+      }
+      .blogger-intro .body .question {
+        text-align: center;
+        margin: 18px auto 0 !important;
+      }
+    </style>
+    <style id="intro-legends-inside">
+      .curve-intro.blogger-intro .intro-chart-layout,
+      .curve-intro.phone-intro .intro-chart-layout {
+        display: block;
+        width: min(100%, 1196px);
+        margin: 12px auto 0;
+      }
+      .intro-chart-legend text {
+        font:
+          20px "Microsoft YaHei",
+          sans-serif;
+        fill: #17365d;
+      }
+      .intro-chart-legend .legend-a {
+        fill: #205786;
+      }
+      .intro-chart-legend .legend-b {
+        fill: #c26340;
+      }
+    </style>
+    <style id="intro-chart-enlarge">
+      .curve-intro.phone-intro:has(.intro-chart) .body {
+        margin-top: 30px;
+      }
+      .phone-intro .body > p:first-child {
+        line-height: 1.3;
+        margin: 12px 0;
+      }
+    </style>
+    <style id="curve-shapes-bridge-style">
+      .curve-shapes-bridge .body {
+        margin-top: 55px;
+      }
+      .curve-shapes-bridge .body > p {
+        margin: 0 0 48px;
+      }
+      .curve-shapes-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .curve-shape svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .curve-shape p {
+        text-align: center;
+        color: #17365d;
+        font-size: 36px;
+        margin: 18px 0 0;
+      }
+      .shape-grid {
+        fill: none;
+        stroke: #e5ecf2;
+        stroke-width: 2;
+      }
+      .shape-axis,
+      .shape-arrow {
+        fill: none;
+        stroke: #8597a8;
+        stroke-width: 2;
+      }
+      .shape-curve {
+        fill: none;
+        stroke: #205786;
+        stroke-width: 5;
+        stroke-linecap: round;
+      }
+    </style>
+    <style id="curve-shapes-axis-labels">
+      .curve-shape {
+        position: relative;
+      }
+      .shape-axis-label {
+        position: absolute;
+        font-size: 22px;
+        color: #657a8d;
+        line-height: 1;
+      }
+      .shape-axis-x {
+        left: 89%;
+        top: 75%;
+      }
+      .shape-axis-y {
+        left: 26%;
+        top: 4%;
+      }
+    </style>
+    <style id="curve-shapes-balance">
+      .curve-shapes-bridge .body {
+        margin-left: 110px;
+        margin-right: 110px;
+      }
+      .curve-shapes-bridge .body > p {
+        margin-bottom: 80px;
+      }
+      .curve-shapes-pair {
+        gap: 48px;
+      }
+      .curve-shape-plot {
+        position: relative;
+      }
+      .curve-shape .shape-caption {
+        margin: 24px 0 0;
+        text-align: center;
+        color: #17365d;
+        font-size: 36px;
+        font-weight: 600;
+      }
+    </style>
+    <style id="inflection-intro-style">
+      .inflection-intro .body > p:first-child {
+        margin-bottom: 16px;
+      }
+      .inflection-example {
+        position: relative;
+        width: min(100%, 900px);
+        margin: 0 auto;
+      }
+      .inflection-example svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .inflection-arc {
+        fill: none;
+        stroke-width: 6;
+        stroke-linecap: round;
+      }
+      .inflection-arc.convex-arc {
+        stroke: #16866e;
+      }
+      .inflection-arc.concave-arc {
+        stroke: #24699a;
+      }
+      .inflection-arrow {
+        fill: none;
+        stroke: #526b80;
+        stroke-width: 2.5;
+      }
+      .inflection-derivative {
+        position: absolute;
+        left: 20%;
+        top: 0%;
+        font-size: 33px;
+        color: #17365d;
+        white-space: nowrap;
+      }
+      .inflection-intro .body .question {
+        margin: 22px 0 0 !important;
+      }
+    </style>
+    <style id="inflection-question-style">
+      .inflection-question-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .inflection-question-slide .body {
+        margin: 0 120px;
+      }
+      .inflection-question-slide .body .question {
+        font-size: 40px;
+        line-height: 1.5;
+        margin: 0 !important;
+      }
+    </style>
+    <style id="inflection-point-label-style">
+      .inflection-point-label {
+        position: absolute;
+        left: 51.5%;
+        top: 49%;
+        font-size: 27px;
+        line-height: 1.2;
+        color: #d33131;
+        white-space: nowrap;
+      }
+    </style>
+    <style id="inflection-point-annotation-style">
+      .inflection-point-annotation {
+        position: absolute;
+        left: 51.5%;
+        top: 49%;
+        white-space: nowrap;
+      }
+      .inflection-point-annotation .inflection-point-label,
+      .inflection-point-annotation .inflection-derivative {
+        position: static;
+        display: block;
+      }
+      .inflection-point-annotation .inflection-point-label {
+        color: #d33131;
+        font-size: 27px;
+        line-height: 1.25;
+      }
+      .inflection-point-annotation .inflection-derivative {
+        color: #17365d;
+        font-size: 29px;
+        margin-top: 6px;
+        line-height: 1.2;
+      }
+    </style>
+    <style id="inflection-condition-style">
+      .inflection-intro .body .inflection-condition {
+        margin: 22px 0 0;
+        font-size: 31px;
+        line-height: 1.4;
+      }
+    </style>
+    <style id="inflection-compare-style">
+      .inflection-compare .body {
+        margin-top: 42px;
+      }
+      .inflection-compare .body > p:first-child {
+        margin: 0 0 10px;
+      }
+      .inflection-compare-plots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 42px;
+        width: min(100%, 1200px);
+        margin: 20px auto 18px;
+      }
+      .compare-curve-plot {
+        position: relative;
+      }
+      .compare-curve-plot svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .compare-axis {
+        fill: none;
+        stroke: #91a3b3;
+        stroke-width: 2;
+      }
+      .compare-curve-base,
+      .compare-arc {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .compare-curve-base {
+        stroke: #315c7c;
+      }
+      .compare-arc.convex {
+        stroke: #16866e;
+      }
+      .compare-arc.concave {
+        stroke: #24699a;
+      }
+      .compare-plot-name,
+      .compare-axis-x,
+      .compare-axis-y {
+        position: absolute;
+        color: #17365d;
+        font-size: 23px;
+        line-height: 1;
+      }
+      .compare-plot-name {
+        left: 8%;
+        top: 8%;
+      }
+      .compare-axis-x {
+        left: 92%;
+        top: 46%;
+      }
+      .compare-axis-y {
+        left: 51%;
+        top: 2%;
+      }
+      .inflection-compare .body .eq {
+        margin: 8px 0;
+      }
+      .inflection-compare .body p {
+        margin: 10px 0;
+      }
+      .inflection-compare .body > .step[data-step="2"] p {
+        font-size: var(--slide-body-size);
+        line-height: 1.5;
+        margin: 20px 0 0;
+      }
+    </style>
+    <style id="compare-revision">
+      .inflection-compare .body {
+        margin-top: 25px;
+      }
+      .inflection-compare .compare-lead {
+        margin: 0 0 8px;
+      }
+      .compare-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        max-width: 1200px;
+        margin: auto;
+        text-align: center;
+      }
+      .compare-name {
+        font-size: 35px;
+        color: #17365d;
+      }
+      .compare-derivative {
+        font-size: 30px;
+        color: #17365d;
+        margin: 4px 0;
+      }
+      .compare-column .compare-curve-plot {
+        width: 100%;
+      }
+      .compare-observation,
+      .compare-signs {
+        font-size: 27px;
+        line-height: 1.3;
+      }
+      .compare-signs {
+        margin-top: 4px;
+      }
+      .compare-question,
+      .compare-conclusion {
+        text-align: center;
+        font-size: 29px;
+        margin-top: 12px;
+        color: #17365d;
+      }
+      .compare-conclusion {
+        font-weight: 600;
+      }
+    </style>
+    <style id="compare-spacing-adjust">
+      .inflection-compare .body {
+        margin-top: 32px;
+      }
+      .inflection-compare .compare-lead {
+        margin-bottom: 20px;
+      }
+      .compare-derivative {
+        margin: 12px 0;
+      }
+      .compare-column .compare-curve-plot {
+        max-width: 620px;
+        margin: 8px auto 0;
+      }
+      .compare-signs {
+        margin-top: 16px;
+      }
+      .compare-conclusion {
+        margin-top: 34px;
+      }
+    </style>
+    <style id="compare-sign-alignment">
+      .compare-signs {
+        position: relative;
+        height: 42px;
+      }
+      .compare-signs .sign-label {
+        position: absolute;
+        right: calc(50% + 125px);
+        white-space: nowrap;
+      }
+      .compare-signs .sign-left,
+      .compare-signs .sign-right {
+        position: absolute;
+        transform: translateX(-50%);
+      }
+      .compare-signs .sign-left {
+        left: calc(50% - 65px);
+      }
+      .compare-signs .sign-right {
+        left: calc(50% + 65px);
+      }
+    </style>
+    <style id="compare-final-spacing">
+      .inflection-compare .compare-lead {
+        margin-bottom: 30px;
+      }
+      .inflection-compare .compare-derivative {
+        margin: 16px 0;
+      }
+      .inflection-compare .compare-signs {
+        margin-top: 28px;
+      }
+      .inflection-compare .compare-conclusion {
+        text-align: left;
+        font-size: var(--slide-body-size);
+        font-weight: 400;
+        color: #353535;
+        margin-top: 55px;
+      }
+    </style>
+    <style id="curvature-exercise-spacing">
+      .curvature-exercise-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 85px;
+        row-gap: 50px;
+        margin: 38px auto 0;
+        width: 1000px;
+        font-size: 36px;
+        color: #17365d;
+      }
+      .curvature-exercise-grid > div {
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body class="lesson-34">
+    <main id="viewport">
+      <div id="stage">
+        <section class="slide cover">
+          <div>
+            <p>第三章　微分中值定理与导数的应用</p>
+            <p>第四节　函数的单调性与曲线的凹凸性</p>
+          </div>
+        </section>
+        <section class="slide ">
+          <h1>高中知识回顾：函数单调性</h1>
+          <div class="body">
+            <p>设函数 \(f\) 在区间 \(I\) 内可导．</p>
+            <ul>
+              <li>若在 \(I\) 内 \(f^{\prime}(x)&gt;0\)，则 \(f\) 在 \(I\) 上单调增加；</li>
+              <li>若在 \(I\) 内 \(f^{\prime}(x)&lt;0\)，则 \(f\) 在 \(I\) 上单调减少．</li>
+            </ul>
+            <div class="step" data-step="1">
+              <p>例如，\(f(x)=x^3-3x\)，则</p>
+              <div class="eq">\[f^{\prime}(x)=3x^2-3=3(x-1)(x+1).\]</div>
+              <p>导数符号与函数的变化：</p>
+              <div class="eq">
+                \[\begin{array}{c|ccccc}x&(-\infty,-1)&-1&(-1,1)&1&(1,+\infty)\\\hline f^{\prime}(x)&+&0&-&0&+\\f(x)&\nearrow&&\searrow&&\nearrow\end{array}\]
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="slide ">
+          <h1>课堂练习</h1>
+          <div class="body">
+            <p>讨论下列函数的单调性：</p>
+            <div class="eq">\[(1)\quad f(x)=\frac{\ln x}{x},\qquad (2)\quad f(x)=x^4-2x^2.\]</div>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（1）讨论函数 \(f(x)=\frac{\ln x}{x}\) 的单调性．</div>
+          <button aria-controls="practice34-1" aria-expanded="false" class="exercise-solution-toggle" type="button">
+            解：
+          </button>
+          <div class="exercise-solution-panel" hidden="" id="practice34-1">
+            <p>定义域为 \((0,+\infty)\)，求导得</p>
+            <div class="solution-display">\[f^{\prime}(x)=\frac{1-\ln x}{x^2}.\]</div>
+            <p>在定义域内，\(x^2&gt;0\)；令 \(f^{\prime}(x)=0\)，得 \(x=e\)．</p>
+            <div class="solution-display">
+              \[\begin{array}{c|ccc}x&amp;(0,e)&amp;e&amp;(e,+\infty)\\\hline f^{\prime}(x)&amp;+&amp;0&amp;-\\f(x)&amp;\nearrow&amp;&amp;\searrow\end{array}\]
+            </div>
+            <p>故单调增加区间为 \((0,e)\)，单调减少区间为 \((e,+\infty)\)．</p>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（2）讨论函数 \(f(x)=x^4-2x^2\) 的单调性．</div>
+          <button aria-controls="practice34-2" aria-expanded="false" class="exercise-solution-toggle" type="button">
+            解：
+          </button>
+          <div class="exercise-solution-panel" hidden="" id="practice34-2">
+            <p>定义域为 \(\mathbb{R}\)，求导得</p>
+            <div class="solution-display">\[f^{\prime}(x)=4x(x-1)(x+1).\]</div>
+            <p>令 \(f^{\prime}(x)=0\)，得 \(x=-1,0,1\)．</p>
+            <div class="solution-display">
+              \[\begin{array}{c|ccccccc}x&amp;(-\infty,-1)&amp;-1&amp;(-1,0)&amp;0&amp;(0,1)&amp;1&amp;(1,+\infty)\\\hline f^{\prime}(x)&amp;-&amp;0&amp;+&amp;0&amp;-&amp;0&amp;+\\f(x)&amp;\searrow&amp;&amp;\nearrow&amp;&amp;\searrow&amp;&amp;\nearrow\end{array}\]
+            </div>
+            <p>故单调增加区间为 \((-1,0)\)、\((1,+\infty)\)，单调减少区间为 \((-\infty,-1)\)、\((0,1)\)．</p>
+          </div>
+        </section>
+        <section class="slide curve-intro">
+          <h1>只知道增减，够吗？</h1>
+          <div class="body">
+            <p>生活中，我们常常关注一个量是在增加还是减少．</p>
+            <p>有时，我们还想知道：</p>
+            <ul>
+              <li>增长得越来越快，还是越来越慢？</li>
+              <li>下降得越来越快，还是越来越慢？</li>
+            </ul>
+            <p class="question">为什么还要关心变化快慢的改变？</p>
+          </div>
+        </section>
+        <section class="slide curve-intro blogger-intro">
+          <h1>给谁投广告？</h1>
+          <div class="body">
+            <p>两位博主近一周各增加 \(10\) 万粉丝，目前粉丝总数相近．</p>
+            <div class="intro-chart-layout">
+              <div class="intro-chart">
+                <svg
+                  viewBox="0 0 720 320"
+                  role="img"
+                  aria-label="散点图：甲乙两位博主一周的粉丝总数，均由100万增至110万"
+                >
+                  <defs>
+                    <linearGradient id="blogger-shared-dot" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="50%" stop-color="#205786" />
+                      <stop offset="50%" stop-color="#c26340" />
+                    </linearGradient>
+                  </defs>
+                  <text x="76" y="25" class="chart-axis-title">粉丝总数（万人）</text>
+                  <path class="chart-grid" d="M100 60H620 M100 160H620 M100 260H620" />
+                  <path class="chart-axis" d="M100 50V260H635" />
+                  <text class="chart-tick" x="90" y="67" text-anchor="end">110</text>
+                  <text class="chart-tick" x="90" y="167" text-anchor="end">105</text>
+                  <text class="chart-tick" x="90" y="267" text-anchor="end">100</text>
+                  <text class="chart-tick" x="100.00" y="292" text-anchor="middle">0</text>
+                  <text class="chart-tick" x="174.29" y="292" text-anchor="middle">1</text>
+                  <text class="chart-tick" x="248.57" y="292" text-anchor="middle">2</text>
+                  <text class="chart-tick" x="322.86" y="292" text-anchor="middle">3</text>
+                  <text class="chart-tick" x="397.14" y="292" text-anchor="middle">4</text>
+                  <text class="chart-tick" x="471.43" y="292" text-anchor="middle">5</text>
+                  <text class="chart-tick" x="545.71" y="292" text-anchor="middle">6</text>
+                  <text class="chart-tick" x="620.00" y="292" text-anchor="middle">7</text>
+                  <text class="chart-axis-title" x="630" y="292">天</text>
+                  <circle class="chart-a-dot" cx="174.29" cy="206.94" r="7" />
+                  <circle class="chart-a-dot" cx="248.57" cy="162.04" r="7" />
+                  <circle class="chart-a-dot" cx="322.86" cy="125.31" r="7" />
+                  <circle class="chart-a-dot" cx="397.14" cy="96.73" r="7" />
+                  <circle class="chart-a-dot" cx="471.43" cy="76.33" r="7" />
+                  <circle class="chart-a-dot" cx="545.71" cy="64.08" r="7" />
+                  <circle class="chart-b-dot" cx="174.29" cy="255.92" r="7" />
+                  <circle class="chart-b-dot" cx="248.57" cy="243.67" r="7" />
+                  <circle class="chart-b-dot" cx="322.86" cy="223.27" r="7" />
+                  <circle class="chart-b-dot" cx="397.14" cy="194.69" r="7" />
+                  <circle class="chart-b-dot" cx="471.43" cy="157.96" r="7" />
+                  <circle class="chart-b-dot" cx="545.71" cy="113.06" r="7" />
+                  <circle class="blogger-shared-marker" cx="100.00" cy="260.00" r="7" />
+                  <circle class="blogger-shared-marker" cx="620.00" cy="60.00" r="7" />
+                  <g class="intro-chart-legend" aria-hidden="true">
+                    <circle class="legend-a" cx="125" cy="78" r="7" />
+                    <text x="141" y="85">甲博主</text>
+                    <circle class="legend-b" cx="125" cy="110" r="7" />
+                    <text x="141" y="117">乙博主</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="question">其他条件相近，你会更关注哪位博主？为什么？</p>
+          </div>
+        </section>
+        <section class="slide curve-intro phone-intro">
+          <h1>两款手机，买哪一款？</h1>
+          <div class="body">
+            <p>甲、乙两款手机小明都喜欢，配置和当前价格相近，<br />预算只够买一部．两款手机近一周都在降价．</p>
+            <div class="intro-chart-layout">
+              <div class="intro-chart">
+                <svg viewBox="0 0 720 320" role="img" aria-label="散点图：甲乙两款手机一周的价格，均由2000元降至1800元">
+                  <defs>
+                    <linearGradient id="phone-shared-dot" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="50%" stop-color="#205786" />
+                      <stop offset="50%" stop-color="#c26340" />
+                    </linearGradient>
+                  </defs>
+                  <text x="76" y="25" class="chart-axis-title">价格（元）</text>
+                  <path class="chart-grid" d="M100 60H620 M100 160H620 M100 260H620" />
+                  <path class="chart-axis" d="M100 50V260H635" />
+                  <text class="chart-tick" x="90" y="67" text-anchor="end">2000</text>
+                  <text class="chart-tick" x="90" y="167" text-anchor="end">1900</text>
+                  <text class="chart-tick" x="90" y="267" text-anchor="end">1800</text>
+                  <text class="chart-tick" x="100.00" y="292" text-anchor="middle">0</text>
+                  <text class="chart-tick" x="174.29" y="292" text-anchor="middle">1</text>
+                  <text class="chart-tick" x="248.57" y="292" text-anchor="middle">2</text>
+                  <text class="chart-tick" x="322.86" y="292" text-anchor="middle">3</text>
+                  <text class="chart-tick" x="397.14" y="292" text-anchor="middle">4</text>
+                  <text class="chart-tick" x="471.43" y="292" text-anchor="middle">5</text>
+                  <text class="chart-tick" x="545.71" y="292" text-anchor="middle">6</text>
+                  <text class="chart-tick" x="620.00" y="292" text-anchor="middle">7</text>
+                  <text class="chart-axis-title" x="630" y="292">天</text>
+                  <circle class="chart-a-dot" cx="174.29" cy="64.08" r="7" />
+                  <circle class="chart-a-dot" cx="248.57" cy="76.33" r="7" />
+                  <circle class="chart-a-dot" cx="322.86" cy="96.73" r="7" />
+                  <circle class="chart-a-dot" cx="397.14" cy="125.31" r="7" />
+                  <circle class="chart-a-dot" cx="471.43" cy="162.04" r="7" />
+                  <circle class="chart-a-dot" cx="545.71" cy="206.94" r="7" />
+                  <circle class="chart-b-dot" cx="174.29" cy="113.06" r="7" />
+                  <circle class="chart-b-dot" cx="248.57" cy="157.96" r="7" />
+                  <circle class="chart-b-dot" cx="322.86" cy="194.69" r="7" />
+                  <circle class="chart-b-dot" cx="397.14" cy="223.27" r="7" />
+                  <circle class="chart-b-dot" cx="471.43" cy="243.67" r="7" />
+                  <circle class="chart-b-dot" cx="545.71" cy="255.92" r="7" />
+                  <circle class="phone-shared-marker" cx="100.00" cy="60.00" r="7" />
+                  <circle class="phone-shared-marker" cx="620.00" cy="260.00" r="7" />
+                  <g class="intro-chart-legend" aria-hidden="true">
+                    <circle class="legend-a" cx="493" cy="78" r="7" />
+                    <text x="509" y="85">甲手机</text>
+                    <circle class="legend-b" cx="493" cy="110" r="7" />
+                    <text x="509" y="117">乙手机</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <p class="question">准备近期购买，你会更倾向于先买哪一款？为什么？</p>
+          </div>
+        </section>
+        <section class="slide curve-shapes-bridge">
+          <h1>观察两种函数曲线</h1>
+          <div class="body">
+            <p>为了进一步说明这些问题，我们需要研究这样的函数曲线：</p>
+            <div class="curve-shapes-pair">
+              <div class="curve-shape">
+                <div class="curve-shape-plot">
+                  <svg viewBox="0 0 600 300" role="img" aria-label="一条向下弯的曲线">
+                    <path class="shape-axis" d="M65 240H535 M150 275V20" />
+                    <path class="shape-arrow" d="M525 235L535 240L525 245 M145 30L150 20L155 30" />
+                    <path class="shape-curve" d="M95 35 Q300 265 505 35" /></svg
+                  ><span class="shape-axis-label shape-axis-x">\(x\)</span
+                  ><span class="shape-axis-label shape-axis-y">\(y\)</span>
+                </div>
+                <p class="step shape-caption" data-step="1">凹函数</p>
+              </div>
+              <div class="curve-shape">
+                <div class="curve-shape-plot">
+                  <svg viewBox="0 0 600 300" role="img" aria-label="一条向上拱的曲线">
+                    <path class="shape-axis" d="M65 240H535 M150 275V20" />
+                    <path class="shape-arrow" d="M525 235L535 240L525 245 M145 30L150 20L155 30" />
+                    <path class="shape-curve" d="M95 265 Q300 35 505 265" /></svg
+                  ><span class="shape-axis-label shape-axis-x">\(x\)</span
+                  ><span class="shape-axis-label shape-axis-y">\(y\)</span>
+                </div>
+                <p class="step shape-caption" data-step="1">凸函数</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="slide chord-observation-page">
+          <h1>观察：曲线与弦</h1>
+          <span class="step chord-interior-reveal" data-step="1" aria-hidden="true"></span>
+          <div class="body" id="chordInitialSlot">
+            <div class="growth-layout chord-layout">
+              <div class="chord-plot">
+                <canvas id="chordGraph" width="1100" height="550" aria-label="曲线、弦及三条可拖动的竖直虚线"></canvas
+                ><span id="curvePointLabel" class="chord-coordinate curve-coordinate"
+                  >\(y=f(\lambda x_1+(1-\lambda)x_2)\)</span
+                ><span id="linePointLabel" class="chord-coordinate line-coordinate"
+                  >\(y=\lambda f(x_1)+(1-\lambda)f(x_2)\)</span
+                >
+              </div>
+              <div class="growth-control chord-controls">
+                <select id="chordFunction" aria-label="选择函数">
+                  <option value="square">y = x²</option>
+                  <option value="negative">y = −x²</option>
+                  <option value="cubic">y = x³</option>
+                  <option value="exp">y = eˣ</option>
+                  <option value="sine">y = sin x</option></select
+                ><input id="chordA" type="hidden" value="-1.5" /><input id="chordM" type="hidden" value="0" /><input
+                  id="chordB"
+                  type="hidden"
+                  value="1.5"
+                />
+                <p class="chord-prompt">拖动竖直虚线，观察曲线与弦的位置．</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="slide chord-comparison-page">
+          <h1>比较两个纵坐标</h1>
+          <div class="body" id="chordComparisonSlot"></div>
+        </section>
+        <section class="slide">
+          <h1>曲线凹凸性的定义</h1>
+          <div class="body">
+            <p>
+              设函数 \(f(x)\) 在区间 \(I\) 上连续，对于 \(I\) 上任意两点 \(x_1&lt;x_2\) 及任意
+              \(0&lt;\lambda&lt;1\)，若恒有
+            </p>
+            <div class="eq">\[f\bigl(\lambda x_1+(1-\lambda)x_2\bigr)\leqslant\lambda f(x_1)+(1-\lambda)f(x_2),\]</div>
+            <p>则称曲线 \(y=f(x)\) 在 \(I\) 上是<strong>凹的</strong>．</p>
+            <p>若上式中的不等号改为 \(\geqslant\)，则称曲线 \(y=f(x)\) 在 \(I\) 上是<strong>凸的</strong>．</p>
+          </div>
+        </section>
+        <section class="slide">
+          <h1>观察：切线斜率的变化</h1>
+          <div class="body">
+            <div class="growth-layout bend-layout">
+              <div><canvas id="bendGraph" width="1100" height="550" aria-label="函数曲线和可拖动的切线"></canvas></div>
+              <div class="growth-control bend-controls">
+                <select id="bendFunction" aria-label="选择函数">
+                  <option value="square">f(x) = x²</option>
+                  <option value="arch">g(x) = 4x − x²</option></select
+                ><input id="bendSlider" type="hidden" value="0.5" />
+                <p class="growth-prompt">从左向右，切线的斜率怎样变化？</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="slide">
+          <h1>怎样判断斜率的变化？</h1>
+          <div class="body">
+            <p>切线斜率是 \(f^{\prime}(x)\)．斜率怎样变化，就是看 \(f^{\prime}(x)\) 的单调性．</p>
+            <p class="question">怎样判断 \(f^{\prime}(x)\) 的单调性？</p>
+            <div class="step" data-step="1">
+              <p>考察 \(f^{\prime}(x)\) 的导数，也就是 \(f^{\prime\prime}(x)\)．</p>
+              <div class="eq">\[f(x)=x^2:\quad f^{\prime}(x)=2x,\quad f^{\prime\prime}(x)=2&gt;0.\]</div>
+              <p>因此，\(f^{\prime}(x)\) 增加．</p>
+            </div>
+            <div class="step" data-step="2">
+              <div class="eq">\[g(x)=4x-x^2:\quad g^{\prime}(x)=4-2x,\quad g^{\prime\prime}(x)=-2&lt;0.\]</div>
+              <p>因此，\(g^{\prime}(x)\) 减少．</p>
+            </div>
+          </div>
+        </section>
+        <section class="slide ">
+          <h1>曲线凹凸性的判定</h1>
+          <div class="body">
+            <p>设函数 \(f\) 在区间 \(I\) 上具有二阶导数．</p>
+            <ul>
+              <li>若在 \(I\) 内 \(f^{\prime\prime}(x)\geqslant0\)，则曲线在 \(I\) 上是凹的；</li>
+              <li>若在 \(I\) 内 \(f^{\prime\prime}(x)\leqslant0\)，则曲线在 \(I\) 上是凸的．</li>
+            </ul>
+          </div>
+        </section>
+        <section class="slide inflection-intro">
+          <h1>曲线的拐点</h1>
+          <div class="body">
+            <p>连续曲线上，凹弧与凸弧的分界点称为曲线的<strong>拐点</strong>．</p>
+            <div class="inflection-example">
+              <svg viewBox="0 0 800 320" role="img" aria-label="曲线两侧的弯曲方向不同，箭头指向中间的拐点">
+                <path
+                  class="inflection-arc concave-arc"
+                  d="M100.00 150.00 L105.00 155.50 L110.00 160.98 L115.00 166.43 L120.00 171.83 L125.00 177.18 L130.00 182.45 L135.00 187.63 L140.00 192.71 L145.00 197.67 L150.00 202.50 L155.00 207.19 L160.00 211.72 L165.00 216.08 L170.00 220.26 L175.00 224.25 L180.00 228.03 L185.00 231.60 L190.00 234.95 L195.00 238.06 L200.00 240.93 L205.00 243.56 L210.00 245.92 L215.00 248.03 L220.00 249.86 L225.00 251.42 L230.00 252.71 L235.00 253.71 L240.00 254.42 L245.00 254.86 L250.00 255.00 L255.00 254.86 L260.00 254.42 L265.00 253.71 L270.00 252.71 L275.00 251.42 L280.00 249.86 L285.00 248.03 L290.00 245.92 L295.00 243.56 L300.00 240.93 L305.00 238.06 L310.00 234.95 L315.00 231.60 L320.00 228.03 L325.00 224.25 L330.00 220.26 L335.00 216.08 L340.00 211.72 L345.00 207.19 L350.00 202.50 L355.00 197.67 L360.00 192.71 L365.00 187.63 L370.00 182.45 L375.00 177.18 L380.00 171.83 L385.00 166.43 L390.00 160.98 L395.00 155.50 L400.00 150.00"
+                />
+                <path
+                  class="inflection-arc convex-arc"
+                  d="M400.00 150.00 L405.00 144.50 L410.00 139.02 L415.00 133.57 L420.00 128.17 L425.00 122.82 L430.00 117.55 L435.00 112.37 L440.00 107.29 L445.00 102.33 L450.00 97.50 L455.00 92.81 L460.00 88.28 L465.00 83.92 L470.00 79.74 L475.00 75.75 L480.00 71.97 L485.00 68.40 L490.00 65.05 L495.00 61.94 L500.00 59.07 L505.00 56.44 L510.00 54.08 L515.00 51.97 L520.00 50.14 L525.00 48.58 L530.00 47.29 L535.00 46.29 L540.00 45.58 L545.00 45.14 L550.00 45.00 L555.00 45.14 L560.00 45.58 L565.00 46.29 L570.00 47.29 L575.00 48.58 L580.00 50.14 L585.00 51.97 L590.00 54.08 L595.00 56.44 L600.00 59.07 L605.00 61.94 L610.00 65.05 L615.00 68.40 L620.00 71.97 L625.00 75.75 L630.00 79.74 L635.00 83.92 L640.00 88.28 L645.00 92.81 L650.00 97.50 L655.00 102.33 L660.00 107.29 L665.00 112.37 L670.00 117.55 L675.00 122.82 L680.00 128.17 L685.00 133.57 L690.00 139.02 L695.00 144.50 L700.00 150.00"
+                />
+                <circle cx="400" cy="150" r="7" fill="#d33131" />
+              </svg>
+              <div class="inflection-point-annotation">
+                <div class="inflection-point-label">拐点\(\bigl(x_0,f(x_0)\bigr)\)</div>
+              </div>
+            </div>
+            <p class="inflection-condition">
+              由于拐点两侧二阶导数异号，若 \(f^{\prime\prime}(x_0)\) 存在，则 \(f^{\prime\prime}(x_0)=0\)．
+            </p>
+          </div>
+        </section>
+        <section class="slide inflection-question-slide">
+          <div class="body">
+            <p class="question">二阶导数为零的点，<br />对应的曲线上的点一定是拐点吗？</p>
+          </div>
+        </section>
+        <section class="slide inflection-compare">
+          <h1>二阶导数为零，一定是拐点吗？</h1>
+          <div class="body">
+            <p class="compare-lead">两条曲线在原点的二阶导数都为零．</p>
+            <div class="compare-columns">
+              <div class="compare-column">
+                <div class="compare-name">\(f(x)=x^3\)</div>
+                <div class="compare-derivative">\(f^{\prime\prime}(x)=6x\)</div>
+                <div class="compare-curve-plot">
+                  <svg viewBox="0 0 440 230" role="img" aria-label="f的曲线图像">
+                    <path class="compare-axis" d="M35 115H405 M220 218V12" />
+                    <path class="compare-axis" d="M397 110L405 115L397 120 M215 20L220 12L225 20" />
+                    <path
+                      class="compare-curve-base"
+                      d="M82.00 200.17 L86.31 192.43 L90.62 185.18 L94.94 178.39 L99.25 172.06 L103.56 166.16 L107.88 160.68 L112.19 155.61 L116.50 150.93 L120.81 146.62 L125.13 142.68 L129.44 139.07 L133.75 135.79 L138.06 132.83 L142.38 130.16 L146.69 127.77 L151.00 125.65 L155.31 123.77 L159.62 122.13 L163.94 120.71 L168.25 119.49 L172.56 118.46 L176.88 117.60 L181.19 116.89 L185.50 116.33 L189.81 115.89 L194.12 115.56 L198.44 115.32 L202.75 115.17 L207.06 115.07 L211.38 115.02 L215.69 115.00 L220.00 115.00 L224.31 115.00 L228.62 114.98 L232.94 114.93 L237.25 114.83 L241.56 114.68 L245.88 114.44 L250.19 114.11 L254.50 113.67 L258.81 113.11 L263.12 112.40 L267.44 111.54 L271.75 110.51 L276.06 109.29 L280.38 107.87 L284.69 106.23 L289.00 104.35 L293.31 102.23 L297.62 99.84 L301.94 97.17 L306.25 94.21 L310.56 90.93 L314.88 87.32 L319.19 83.38 L323.50 79.07 L327.81 74.39 L332.12 69.32 L336.44 63.84 L340.75 57.94 L345.06 51.61 L349.38 44.82 L353.69 37.57 L358.00 29.83"
+                    />
+                    <path
+                      class="step compare-arc convex"
+                      data-step="2"
+                      d="M82.00 200.17 L84.16 196.24 L86.31 192.43 L88.47 188.74 L90.62 185.18 L92.78 181.73 L94.94 178.39 L97.09 175.17 L99.25 172.06 L101.41 169.05 L103.56 166.16 L105.72 163.37 L107.88 160.68 L110.03 158.10 L112.19 155.61 L114.34 153.22 L116.50 150.93 L118.66 148.73 L120.81 146.62 L122.97 144.61 L125.13 142.68 L127.28 140.83 L129.44 139.07 L131.59 137.39 L133.75 135.79 L135.91 134.27 L138.06 132.83 L140.22 131.46 L142.38 130.16 L144.53 128.93 L146.69 127.77 L148.84 126.68 L151.00 125.65 L153.16 124.68 L155.31 123.77 L157.47 122.92 L159.62 122.13 L161.78 121.39 L163.94 120.71 L166.09 120.08 L168.25 119.49 L170.41 118.95 L172.56 118.46 L174.72 118.01 L176.88 117.60 L179.03 117.23 L181.19 116.89 L183.34 116.60 L185.50 116.33 L187.66 116.10 L189.81 115.89 L191.97 115.71 L194.12 115.56 L196.28 115.43 L198.44 115.32 L200.59 115.24 L202.75 115.17 L204.91 115.11 L207.06 115.07 L209.22 115.04 L211.38 115.02 L213.53 115.01 L215.69 115.00 L217.84 115.00 L220.00 115.00"
+                    />
+                    <path
+                      class="step compare-arc concave"
+                      data-step="2"
+                      d="M220.00 115.00 L222.16 115.00 L224.31 115.00 L226.47 114.99 L228.62 114.98 L230.78 114.96 L232.94 114.93 L235.09 114.89 L237.25 114.83 L239.41 114.76 L241.56 114.68 L243.72 114.57 L245.88 114.44 L248.03 114.29 L250.19 114.11 L252.34 113.90 L254.50 113.67 L256.66 113.40 L258.81 113.11 L260.97 112.77 L263.12 112.40 L265.28 111.99 L267.44 111.54 L269.59 111.05 L271.75 110.51 L273.91 109.92 L276.06 109.29 L278.22 108.61 L280.38 107.87 L282.53 107.08 L284.69 106.23 L286.84 105.32 L289.00 104.35 L291.16 103.32 L293.31 102.23 L295.47 101.07 L297.62 99.84 L299.78 98.54 L301.94 97.17 L304.09 95.73 L306.25 94.21 L308.41 92.61 L310.56 90.93 L312.72 89.17 L314.88 87.32 L317.03 85.39 L319.19 83.38 L321.34 81.27 L323.50 79.07 L325.66 76.78 L327.81 74.39 L329.97 71.90 L332.12 69.32 L334.28 66.63 L336.44 63.84 L338.59 60.95 L340.75 57.94 L342.91 54.83 L345.06 51.61 L347.22 48.27 L349.38 44.82 L351.53 41.26 L353.69 37.57 L355.84 33.76 L358.00 29.83"
+                    />
+                    <circle cx="220" cy="115" r="5" fill="#d33131" /></svg
+                  ><span class="compare-axis-x">\(x\)</span><span class="compare-axis-y">\(y\)</span>
+                </div>
+                <div class="step compare-signs" data-step="1">
+                  <span class="sign-label">二阶导数：</span><span class="sign-left" style="color:#16866e">−</span
+                  ><span class="sign-right" style="color:#24699a">＋</span>
+                </div>
+              </div>
+              <div class="compare-column">
+                <div class="compare-name">\(g(x)=x^4\)</div>
+                <div class="compare-derivative">\(g^{\prime\prime}(x)=12x^2\)</div>
+                <div class="compare-curve-plot">
+                  <svg viewBox="0 0 440 230" role="img" aria-label="g的曲线图像">
+                    <path class="compare-axis" d="M35 115H405 M220 218V12" />
+                    <path class="compare-axis" d="M397 110L405 115L397 120 M215 20L220 12L225 20" />
+                    <path
+                      class="compare-curve-base"
+                      d="M82.00 17.06 L86.31 28.74 L90.62 39.34 L94.94 48.93 L99.25 57.59 L103.56 65.36 L107.88 72.32 L112.19 78.51 L116.50 84.01 L120.81 88.86 L125.13 93.12 L129.44 96.83 L133.75 100.05 L138.06 102.83 L142.38 105.19 L146.69 107.20 L151.00 108.88 L155.31 110.27 L159.62 111.41 L163.94 112.33 L168.25 113.06 L172.56 113.63 L176.88 114.07 L181.19 114.39 L185.50 114.62 L189.81 114.78 L194.12 114.88 L198.44 114.94 L202.75 114.98 L207.06 114.99 L211.38 115.00 L215.69 115.00 L220.00 115.00 L224.31 115.00 L228.62 115.00 L232.94 114.99 L237.25 114.98 L241.56 114.94 L245.88 114.88 L250.19 114.78 L254.50 114.62 L258.81 114.39 L263.12 114.07 L267.44 113.63 L271.75 113.06 L276.06 112.33 L280.38 111.41 L284.69 110.27 L289.00 108.88 L293.31 107.20 L297.62 105.19 L301.94 102.83 L306.25 100.05 L310.56 96.83 L314.88 93.12 L319.19 88.86 L323.50 84.01 L327.81 78.51 L332.12 72.32 L336.44 65.36 L340.75 57.59 L345.06 48.93 L349.38 39.34 L353.69 28.74 L358.00 17.06"
+                    />
+                    <path
+                      class="step compare-arc concave"
+                      data-step="2"
+                      d="M82.00 17.06 L84.16 23.04 L86.31 28.74 L88.47 34.17 L90.62 39.34 L92.78 44.26 L94.94 48.93 L97.09 53.37 L99.25 57.59 L101.41 61.58 L103.56 65.36 L105.72 68.94 L107.88 72.32 L110.03 75.51 L112.19 78.51 L114.34 81.35 L116.50 84.01 L118.66 86.51 L120.81 88.86 L122.97 91.06 L125.13 93.12 L127.28 95.04 L129.44 96.83 L131.59 98.50 L133.75 100.05 L135.91 101.49 L138.06 102.83 L140.22 104.06 L142.38 105.19 L144.53 106.24 L146.69 107.20 L148.84 108.08 L151.00 108.88 L153.16 109.61 L155.31 110.27 L157.47 110.87 L159.62 111.41 L161.78 111.90 L163.94 112.33 L166.09 112.72 L168.25 113.06 L170.41 113.37 L172.56 113.63 L174.72 113.86 L176.88 114.07 L179.03 114.24 L181.19 114.39 L183.34 114.51 L185.50 114.62 L187.66 114.70 L189.81 114.78 L191.97 114.83 L194.12 114.88 L196.28 114.91 L198.44 114.94 L200.59 114.96 L202.75 114.98 L204.91 114.99 L207.06 114.99 L209.22 115.00 L211.38 115.00 L213.53 115.00 L215.69 115.00 L217.84 115.00 L220.00 115.00"
+                    />
+                    <path
+                      class="step compare-arc concave"
+                      data-step="2"
+                      d="M220.00 115.00 L222.16 115.00 L224.31 115.00 L226.47 115.00 L228.62 115.00 L230.78 115.00 L232.94 114.99 L235.09 114.99 L237.25 114.98 L239.41 114.96 L241.56 114.94 L243.72 114.91 L245.88 114.88 L248.03 114.83 L250.19 114.78 L252.34 114.70 L254.50 114.62 L256.66 114.51 L258.81 114.39 L260.97 114.24 L263.12 114.07 L265.28 113.86 L267.44 113.63 L269.59 113.37 L271.75 113.06 L273.91 112.72 L276.06 112.33 L278.22 111.90 L280.38 111.41 L282.53 110.87 L284.69 110.27 L286.84 109.61 L289.00 108.88 L291.16 108.08 L293.31 107.20 L295.47 106.24 L297.62 105.19 L299.78 104.06 L301.94 102.83 L304.09 101.49 L306.25 100.05 L308.41 98.50 L310.56 96.83 L312.72 95.04 L314.88 93.12 L317.03 91.06 L319.19 88.86 L321.34 86.51 L323.50 84.01 L325.66 81.35 L327.81 78.51 L329.97 75.51 L332.12 72.32 L334.28 68.94 L336.44 65.36 L338.59 61.58 L340.75 57.59 L342.91 53.37 L345.06 48.93 L347.22 44.26 L349.38 39.34 L351.53 34.17 L353.69 28.74 L355.84 23.04 L358.00 17.06"
+                    />
+                    <circle cx="220" cy="115" r="5" fill="#d33131" /></svg
+                  ><span class="compare-axis-x">\(x\)</span><span class="compare-axis-y">\(y\)</span>
+                </div>
+                <div class="step compare-signs" data-step="1">
+                  <span class="sign-label">二阶导数：</span><span class="sign-left" style="color:#24699a">＋</span
+                  ><span class="sign-right" style="color:#24699a">＋</span>
+                </div>
+              </div>
+            </div>
+            <div class="step compare-conclusion" data-step="2">二阶导数为零，还要看该点两侧的凹凸性是否改变．</div>
+          </div>
+        </section>
+        <section class="slide example-slide">
+          <h1>例 1</h1>
+          <div class="body">
+            <p>判定下列曲线的凹凸性：</p>
+            <div class="eq">\[y=e^x.\]</div>
+            <button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="ex34-exp">
+              解：
+            </button>
+            <div id="ex34-exp" class="exercise-solution-panel" hidden>
+              <p>函数在 \(\mathbb{R}\) 上具有二阶导数，且</p>
+              <div class="solution-display">\[y^{\prime}=e^x,\qquad y^{\prime\prime}=e^x&gt;0.\]</div>
+              <p>因此，曲线在 \((-\infty,+\infty)\) 上是凹的．</p>
+            </div>
+          </div>
+        </section>
+        <section class="slide example-slide">
+          <h1>例 2</h1>
+          <div class="body">
+            <p>求下列曲线的凹凸区间与拐点：</p>
+            <div class="eq">\[y=x^3-3x.\]</div>
+            <button aria-controls="ex34-2" aria-expanded="false" class="exercise-solution-toggle" type="button">
+              解：
+            </button>
+            <div class="exercise-solution-panel" hidden="" id="ex34-2">
+              <p>曲线在 \(\mathbb{R}\) 上连续，求导得</p>
+              <div class="solution-display">\[y^{\prime}=3x^2-3,\qquad y^{\prime\prime}=6x.\]</div>
+              <p>令 \(y^{\prime\prime}=0\)，得 \(x=0\)．在 \(0\) 的两侧：</p>
+              <div class="solution-display">
+                \[\begin{array}{c|ccc}x&amp;(-\infty,0)&amp;0&amp;(0,+\infty)\\\hline y^{\prime\prime}&amp;-&amp;0&amp;+\end{array}\]
+              </div>
+              <p>故凸区间为 \((-\infty,0)\)，凹区间为 \((0,+\infty)\)．又 \(y(0)=0\)，所以拐点为 \((0,0)\)．</p>
+            </div>
+          </div>
+        </section>
+        <section class="slide ">
+          <h1>课堂练习</h1>
+          <div class="body">
+            <p>求下列曲线的凹凸区间与拐点：</p>
+            <div class="curvature-exercise-grid">
+              <div>\((3)\quad y=x^4-6x^2\)</div>
+              <div>\((4)\quad y=x^3-3x^2\)</div>
+              <div>\((5)\quad y=\ln x\)</div>
+              <div>\((6)\quad y=xe^{-x}\)</div>
+            </div>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（3）求曲线 \(y=x^4-6x^2\) 的凹凸区间与拐点．</div>
+          <button aria-controls="practice34-3" aria-expanded="false" class="exercise-solution-toggle" type="button">
+            解：
+          </button>
+          <div class="exercise-solution-panel" hidden="" id="practice34-3">
+            <p>曲线在 \(\mathbb{R}\) 上连续，求导得</p>
+            <div class="solution-display">\[y^{\prime}=4x^3-12x,\qquad y^{\prime\prime}=12(x-1)(x+1).\]</div>
+            <p>令 \(y^{\prime\prime}=0\)，得 \(x=-1\) 或 \(x=1\)．</p>
+            <div class="solution-display">
+              \[\begin{array}{c|ccccc}x&amp;(-\infty,-1)&amp;-1&amp;(-1,1)&amp;1&amp;(1,+\infty)\\\hline y^{\prime\prime}&amp;+&amp;0&amp;-&amp;0&amp;+\end{array}\]
+            </div>
+            <p>故凹区间为 \((-\infty,-1)\)、\((1,+\infty)\)，凸区间为 \((-1,1)\)．</p>
+            <p>两处分界点两侧凹凸性均发生变化，且 \(y(\pm1)=-5\)，故拐点为 \((-1,-5)\)、\((1,-5)\)．</p>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（4）求曲线 \(y=x^3-3x^2\) 的凹凸区间与拐点．</div>
+          <button aria-controls="practice34-4" aria-expanded="false" class="exercise-solution-toggle" type="button">
+            解：
+          </button>
+          <div class="exercise-solution-panel" hidden="" id="practice34-4">
+            <p>曲线在 \(\mathbb{R}\) 上连续，求导得</p>
+            <div class="solution-display">\[y^{\prime}=3x^2-6x,\qquad y^{\prime\prime}=6x-6.\]</div>
+            <p>令 \(y^{\prime\prime}=0\)，得 \(x=1\)．在 \(1\) 的两侧：</p>
+            <div class="solution-display">
+              \[\begin{array}{c|ccc}x&amp;(-\infty,1)&amp;1&amp;(1,+\infty)\\\hline y^{\prime\prime}&amp;-&amp;0&amp;+\end{array}\]
+            </div>
+            <p>故凸区间为 \((-\infty,1)\)，凹区间为 \((1,+\infty)\)．</p>
+            <p>两侧凹凸性发生变化，且 \(y(1)=-2\)，故拐点为 \((1,-2)\)．</p>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（5）求曲线 \(y=\ln x\) 的凹凸区间与拐点．</div>
+          <button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="practice34-5">
+            解：
+          </button>
+          <div id="practice34-5" class="exercise-solution-panel" hidden>
+            <p>函数的定义域为 \((0,+\infty)\)，求导得</p>
+            <div class="solution-display">\[y^{\prime}=\frac1x,\qquad y^{\prime\prime}=-\frac1{x^2}&lt;0.\]</div>
+            <p>因此，曲线在 \((0,+\infty)\) 上是凸的，没有凹区间，也没有拐点．</p>
+          </div>
+        </section>
+        <section class="slide practice-page">
+          <div class="writing-question">（6）求曲线 \(y=xe^{-x}\) 的凹凸区间与拐点．</div>
+          <button type="button" class="exercise-solution-toggle" aria-expanded="false" aria-controls="practice34-6">
+            解：
+          </button>
+          <div id="practice34-6" class="exercise-solution-panel" hidden>
+            <p>函数在 \(\mathbb{R}\) 上连续，求导得</p>
+            <div class="solution-display">\[y^{\prime}=(1-x)e^{-x},\qquad y^{\prime\prime}=(x-2)e^{-x}.\]</div>
+            <p>由于 \(e^{-x}&gt;0\)，令 \(y^{\prime\prime}=0\)，得 \(x=2\)．</p>
+            <div class="solution-display">
+              \[\begin{array}{c|ccc}x&amp;(-\infty,2)&amp;2&amp;(2,+\infty)\\\hline y^{\prime\prime}&amp;-&amp;0&amp;+\end{array}\]
+            </div>
+            <p>
+              故凸区间为 \((-\infty,2)\)，凹区间为 \((2,+\infty)\)．又 \(y(2)=2e^{-2}\)，所以拐点为 \((2,2e^{-2})\)．
+            </p>
+          </div>
+        </section>
+        <section class="slide summary-slide">
+          <h1>本节小结</h1>
+          <div class="body">
+            <ul>
+              <li>利用一阶导数的符号，判断函数的单调性．</li>
+              <li>利用二阶导数的符号，判断曲线的凹凸性．</li>
+              <li>结合曲线的连续性与凹凸性变化，确定拐点．</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+    <template id="annotation-template"
+      ><button aria-expanded="false" aria-label="隐藏书写工具" class="tool-toggle">▲</button>
+      <div class="writing-tools" hidden="">
+        <button aria-label="画笔" class="pen" hidden=""></button>
+        <div class="pen-options">
+          <div class="palette">
+            <button aria-label="黑色" class="swatch selected" data-color="#111111" style="background:#111111"></button
+            ><button aria-label="红色" class="swatch" data-color="#e00000" style="background:#e00000"></button
+            ><button aria-label="蓝色" class="swatch" data-color="#0055d4" style="background:#0055d4"></button
+            ><button aria-label="绿色" class="swatch" data-color="#008000" style="background:#008000"></button
+            ><button aria-label="黄色" class="swatch" data-color="#ffdf00" style="background:#ffdf00"></button
+            ><button aria-label="橙色" class="swatch" data-color="#ff8c00" style="background:#ff8c00"></button
+            ><button aria-label="紫色" class="swatch" data-color="#8000a8" style="background:#8000a8"></button
+            ><button aria-label="玫红色" class="swatch" data-color="#c0007a" style="background:#c0007a"></button
+            ><button aria-label="深灰色" class="swatch" data-color="#555555" style="background:#555555"></button
+            ><button aria-label="深红色" class="swatch" data-color="#8b0000" style="background:#8b0000"></button
+            ><button aria-label="深蓝色" class="swatch" data-color="#003080" style="background:#003080"></button
+            ><button aria-label="深绿色" class="swatch" data-color="#005b32" style="background:#005b32"></button
+            ><button aria-label="棕色" class="swatch" data-color="#8b4513" style="background:#8b4513"></button
+            ><button aria-label="青色" class="swatch" data-color="#008b8b" style="background:#008b8b"></button
+            ><button aria-label="天蓝色" class="swatch" data-color="#00a6d6" style="background:#00a6d6"></button>
+          </div>
+          <div class="width-control">
+            <input aria-label="画笔粗细" class="width-slider" max="16" min="1" type="range" value="3" />
+          </div>
+          <input class="ink-color" type="hidden" value="#111111" />
+        </div>
+        <div class="tool-row">
+          <button aria-label="鼠标" class="pointer-mode" title="鼠标">
+            <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 3v15l4-4 3 6 3-1.5-3-6h5z"></path></svg></button
+          ><button aria-label="新增白板页" class="add-board" title="新增白板页">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M5 3h10l4 4v14H5z M15 3v4h4 M12 10v7 M8.5 13.5h7"></path>
+            </svg></button
+          ><button aria-label="切换放映与白板模式" class="mode-switch" title="切换放映与白板模式">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M4 5h16v12H4z M8 21l4-4 4 4 M9 10l2 2 4-4"></path>
+            </svg></button
+          ><button aria-label="撤销" class="undo" title="撤销">↶</button
+          ><button aria-label="重做" class="redo" title="重做">↷</button>
+        </div>
+        <div class="page-navigation">
+          <button aria-label="橡皮" class="eraser" title="橡皮">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path
+                d="M3 15.5 12.6 5.9a2.8 2.8 0 0 1 4 0l3.5 3.5a2.8 2.8 0 0 1 0 4L14 19.5H8z M8 10.5l6 6 M14 19.5h7"
+              ></path>
+            </svg></button
+          ><button aria-label="清空本页" class="clear" title="清空本页">
+            <svg aria-hidden="true" viewbox="0 0 24 24">
+              <path d="M4 7h16 M9 7V4h6v3 M7 7l1 13h8l1-13 M10 10v7 M14 10v7"></path>
+            </svg></button
+          ><button class="archive-toggle" aria-label="保存和读取" title="保存和读取" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h7l2 2h9v11H3z M3 6v13" /></svg></button
+          ><button aria-label="上一页" class="page-prev" title="上一页">◀</button
+          ><button aria-label="下一页" class="page-next" title="下一页">▶</button>
+          <div class="archive-menu" hidden>
+            <button class="archive-save" type="button">保存</button
+            ><button class="archive-load" type="button">读取</button>
+          </div>
+        </div>
+      </div>
+      <canvas aria-label="第1题手写白板" class="writing-canvas" height="900" width="1600"></canvas
+    ></template>
+  </body>
+</html>
