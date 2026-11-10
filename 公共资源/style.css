@@ -161,3 +161,7 @@
 
 /* 切线观察页：图像放大，函数选择与问题位于下方。 */
 .growth-layout.bend-layout{display:flex;flex-direction:column;align-items:flex-start;gap:20px}.growth-layout.bend-layout canvas{width:1210px;height:605px}.bend-layout .bend-controls{display:flex;align-items:center;gap:24px;padding-top:0}.bend-layout .growth-prompt{margin:0}#bendGraph{touch-action:none}
+
+/* 防止触屏长按误选课件文字，保留可编辑区域的文字操作。 */
+.slide { -webkit-user-select: none; user-select: none; }
+.slide input, .slide textarea, .slide [contenteditable='true'] { -webkit-user-select: text; user-select: text; }

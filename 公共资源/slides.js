@@ -256,7 +256,7 @@ function prepareSlide(slide) {
     true,
   );
   slide.addEventListener("contextmenu", (e) => {
-    if (slide.classList.contains("annotation-active")) e.preventDefault();
+    e.preventDefault();
   });
 }
 document.querySelectorAll(".slide").forEach(prepareSlide);
