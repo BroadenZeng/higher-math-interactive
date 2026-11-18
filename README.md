@@ -47,9 +47,3 @@ npx prettier@3.6.2 --check "**/*.{html,js,css}"
 
 将 `--check` 改为 `--write` 可自动整理格式。课堂放映和交互功能仍需实际测试。
 
-## 联系与交流
-
-作者：曾展宽 · 嘉应学院  
-邮箱：[broadenzeng@gmail.com](mailto:broadenzeng@gmail.com)
-
-欢迎交流数学教学、交互课件的想法与使用建议。
